@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <title>Stencil Component Starter</title>
+  <link rel="stylesheet" type="text/css" href="http://localhost:2202/api/v3.0/p/core/framework.css">
+  <link rel="stylesheet" type="text/css" href="http://localhost:2202/api/v3.0/p/core/styles.css">
+  <link href="/assets/themify-icons-0.1.2/css/themify-icons.css" type="text/css" rel="stylesheet" />
+  <script src="http://localhost:2202/lib/jquery-3.3.1/jquery.min.js" type="text/javascript" data-sort-weight="1"></script>
+  <style>
+    @font-face {
+      font-family: Roboto;
+      src: url('/assets/Roboto/Roboto-Regular.ttf');
+    }
+  </style>
+
+  <script src="/build/wv-sitemap-explorer.js"></script>
+
+</head>
+
+<body>
+  <div id="body-inner-wrapper">
+    <!--c:Nav_Default-->
+    <div id="nav">
+      <div id="brand-logo" class="pl-3 pr-2">
+        <a href="/">
+          <img src="http://localhost:2202/assets/logo-text.png" />
+        </a>
+      </div>
+      <div id="app-nav-wrapper">
+        <!--c:AppNav_Default-->
+        <div id="app-nav">
+          <a href="/" class="pl-3 pr-2" data-navclick-handler title="Go to Application Finder">
+            <span id="app-icon" class="ti-settings"></span>
+            <span id="app-label">Administration</span>
+            <span class="ti-angle-down nav-caret"></span>
+          </a>
+        </div>
+
+      </div>
+      <div id="area-nav-wrapper">
+        <!--c:AreaNav_Default-->
+    <div id="area-nav">
+      <a id="area-nav-link" data-navclick-handler href="#" class="pl-1 pr-2" title="Show application sitemap">
+        <span id="area-label">Designer</span>
+        <span id="area-nav-icon" class="ti-angle-right nav-caret"></span>
+      </a>
+    </div>
+    
+      </div>
+    
+      <div id="subarea-nav-wrapper">
+
+        <!--c:SubAreaNav_Default-->
+
+      </div>
+      <div id="record-nav-wrapper">
+
+        <!--c:RecordNav_Default-->
+
+      </div>
+      <div id="user-nav-wrapper">
+
+        <!--c:UserNav_Default-->
+
+      </div>
+    </div>
+    <div id="action-panel">
+      	<wv-sitemap-explorer id="sitemap" sitemap='{"areas":[{"id":"d3237d8c-c074-46d7-82c2-1385cbfff35a","weight":1,"label":"Designer","description":"Schema and Layout management","name":"designer","icon_class":"ti-ruler-pencil","show_group_names":false,"color":"#2196F3","label_translations":[],"description_translations":[],"groups":[],"nodes":[{"id":"02d75ea5-8fc6-4f95-9933-0eed6b36ca49","weight":2,"group_name":null,"label":"Applications","name":"application","icon_class":"ti-layout-grid2","url":"/admin/designer/application/l/list","label_translations":[],"access":[],"type":3,"entity_id":"b9cebc3b-6443-452a-8e34-b311a73dcc8b"},{"id":"dfa7ec55-b55b-404f-b251-889f1d81df29","weight":1,"group_name":null,"label":"Entities","name":"entity","icon_class":"ti-server","url":"/admin/designer/entity/l/list","label_translations":[],"access":[],"type":3,"entity_id":"b9cebc3b-6443-452a-8e34-b311a73dcc8b"},{"id":"5b132ac0-703e-4342-a13d-c7ff93d07a4f","weight":3,"group_name":null,"label":"Pages","name":"page","icon_class":"ti-file","url":"/admin/designer/page/l","label_translations":[],"access":[],"type":3,"entity_id":"b9cebc3b-6443-452a-8e34-b311a73dcc8b"},{"id":"9b30bf96-67d9-4d20-bf07-e6ef1c44d553","weight":4,"group_name":null,"label":"Data sources","name":"data_source","icon_class":"ti-cloud-down","url":"/admin/designer/data_source/l/list","label_translations":[],"access":[],"type":3,"entity_id":null}],"access":[]},{"id":"c5c4cefc-1402-4a8b-9867-7f2a059b745d","weight":2,"label":"System access","description":"Manage users and roles","name":"access","icon_class":"ti-key","show_group_names":false,"color":"#673AB7","label_translations":[],"description_translations":[],"groups":[],"nodes":[{"id":"75567fc4-70e1-41a9-9e32-2e5b62636598","weight":2,"group_name":null,"label":"Roles","name":"roles","icon_class":"ti-id-badge","url":"/admin/access/role/l/list","label_translations":[],"access":[],"type":3,"entity_id":null},{"id":"ff578868-817e-433d-988f-bb8d4e9baa0d","weight":1,"group_name":null,"label":"Users","name":"users","icon_class":"ti-user","url":"/admin/access/user/l/list","label_translations":[],"access":[],"type":3,"entity_id":null}],"access":[]},{"id":"fee72214-f1c4-4ed5-8bda-35698dc11528","weight":3,"label":"Server management","description":"Background jobs and maintenance","name":"server","icon_class":"ti-server","show_group_names":false,"color":"#F44336","label_translations":[],"description_translations":[],"groups":[],"nodes":[{"id":"396ec481-3b2e-461c-b514-743fb3252003","weight":1,"group_name":null,"label":"Background jobs and schedule","name":"jobs","icon_class":"ti-settings","url":"/admin/server/job/l/list","label_translations":[],"access":[],"type":3,"entity_id":null},{"id":"78a29ac8-d2aa-4379-b990-08f7f164a895","weight":2,"group_name":null,"label":"Error log","name":"log","icon_class":"ti-notepad","url":"/admin/server/log/l/list","label_translations":[],"access":[],"type":3,"entity_id":null}],"access":[]}]}'></wv-sitemap-explorer>
+
+    </div>
+    <div id="body-inner-wrapper-2" style="border-color:#F44336">
+      <div>Administration page</div>
+
+    </div>
+  </div>
+  <script>
+  $(function () {
+    var sitemap = "{{SitemapJson}}";
+  
+    function initElements() {
+      var initedObj = {};
+      initedObj.navWrapper = document.getElementById("nav");
+      //Area
+      initedObj.areaNavWrapper = document.getElementById("area-nav-wrapper");
+      initedObj.sitemapEl = document.getElementById("sitemap");
+      initedObj.areaNavIcon = document.getElementById("area-nav-icon");
+  
+      //Subarea
+      initedObj.nodeNavWrapper = document.getElementById("node-nav-wrapper");
+      initedObj.nodeNavIcon = document.getElementById("node-nav-icon");
+  
+      //Record
+      initedObj.recordNavWrapper = document.getElementById("record-nav-wrapper");
+      initedObj.recordNav = document.getElementById("record-nav");
+      initedObj.recordNavIcon = document.getElementById("record-nav-icon");
+  
+      //Current nav state
+      initedObj.currentOpenedMenu = initedObj.navWrapper.getAttribute("data-opened-menu");
+      return initedObj;
+    }
+  
+    function getClickedElementType(targetElement) {
+
+      do {
+        if(!targetElement || !targetElement.id){
+          targetElement = targetElement.parentNode;
+          continue;
+        }
+        var currentElementId = targetElement.id;
+        if (currentElementId === "area-nav-link") {
+          return "area";
+        }
+        else if (currentElementId === "node-nav-link") {
+          return "node";
+        }
+        else if (currentElementId === "record-nav-link") {
+          return "record";
+        }
+        // Go up the DOM.
+        targetElement = targetElement.parentNode;
+      } while (targetElement);
+      return null;
+    }
+  
+    function closeAreaNav() {
+      var initedObj = initElements();
+      initedObj.areaNavWrapper.removeAttribute("class");
+      initedObj.areaNavIcon.setAttribute("class", "ti-angle-right nav-caret");
+      initedObj.sitemapEl.hide();
+      initedObj.navWrapper.removeAttribute("data-opened-menu");
+    };
+  
+    function openAreaNav() {
+      var initedObj = initElements();
+      initedObj.areaNavWrapper.setAttribute("class", "active");
+      initedObj.areaNavIcon.setAttribute("class", "ti-close nav-caret");
+      initedObj.sitemapEl.show();
+      initedObj.navWrapper.setAttribute("data-opened-menu", "area");
+    }
+  
+    function closeSubareaNav() {
+      var initedObj = initElements();
+      initedObj.nodeNavWrapper.removeAttribute("class");
+      initedObj.nodeNavIcon.setAttribute("class", "ti-angle-right nav-caret");
+      initedObj.navWrapper.removeAttribute("data-opened-menu");
+    }
+  
+    function openSubareaNav() {
+      var initedObj = initElements();
+      initedObj.nodeNavWrapper.setAttribute("class", "active");
+      initedObj.nodeNavIcon.setAttribute("class", "ti-close nav-caret");
+      initedObj.navWrapper.setAttribute("data-opened-menu", "node");
+    }
+  
+    function closeRecordNav() {
+      var initedObj = initElements();
+      if (initedObj.recordNav) {
+        initedObj.recordNavWrapper.removeAttribute("class");
+        if (initedObj.recordNavIcon) {
+          initedObj.recordNavIcon.setAttribute("class", "d-none");
+        }
+        initedObj.navWrapper.removeAttribute("data-opened-menu");
+      }
+    }
+    function openRecordNav() {
+      var initedObj = initElements();
+      if (initedObj.recordNav) {
+        initedObj.recordNavWrapper.setAttribute("class", "active");
+        if (initedObj.recordNavIcon) {
+          initedObj.recordNavIcon.setAttribute("class", "ti-close nav-caret");
+        }
+        initedObj.navWrapper.setAttribute("data-opened-menu", "record");
+      }
+    }
+  
+    $("[data-navclick-handler]").on("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      //Elements
+      var initedObj = initElements();
+  
+      if (initedObj.currentOpenedMenu) {
+        var clickedElementType = getClickedElementType(event.target);
+        if (initedObj.currentOpenedMenu === "area" && clickedElementType === "area") {
+          closeAreaNav();
+        }
+        else if (initedObj.currentOpenedMenu === "node" && clickedElementType === "node") {
+          closeSubareaNav();
+        }
+        else if (initedObj.currentOpenedMenu === "record" && clickedElementType === "record") {
+          closeRecordNav();
+        }
+        else if (initedObj.currentOpenedMenu !== "area" && clickedElementType === "area") {
+          closeSubareaNav();
+          closeRecordNav();
+          openAreaNav();
+        }
+        else if (initedObj.currentOpenedMenu !== "node" && clickedElementType === "node") {
+          closeAreaNav();
+          closeRecordNav();
+          openSubareaNav();
+        }
+        else if (initedObj.currentOpenedMenu !== "record" && clickedElementType === "record") {
+          closeAreaNav();
+          closeSubareaNav();
+          openRecordNav();
+        }
+        else {
+          closeAreaNav();
+          closeSubareaNav();
+          closeRecordNav();
+        }
+      }
+      else {
+        //Menu should be opened
+        var clickedElementType2 = getClickedElementType(event.target);
+        if (clickedElementType2 === "area") {
+          openAreaNav();
+        }
+        else if (clickedElementType2 === "node") {
+          openSubareaNav();
+        }
+        else if (clickedElementType2 === "record") {
+          openRecordNav();
+        }
+      }		
+    });
+  
+    document.addEventListener("click", function(event) {
+      var initedObj = initElements();
+  
+      var targetElement = event.target;
+  
+      if (initedObj.currentOpenedMenu) {
+        var safezoneEl = null;
+  
+        if (initedObj.currentOpenedMenu === "area") {
+          safezoneEl = document.getElementById("sitemap");
+        }
+        else if (initedObj.currentOpenedMenu === "node") {
+          safezoneEl = document.getElementById("node-nav-dropdown");
+        }
+        else if (initedObj.currentOpenedMenu === "record") {
+          safezoneEl = document.getElementById("record-nav-dropdown");
+        }
+        do {
+          if (targetElement === safezoneEl) {
+            // Do nothing, just return.
+            return;
+          }
+          // Go up the DOM.
+          targetElement = targetElement.parentNode;
+        } while (targetElement);
+      }
+  
+      if (initedObj.currentOpenedMenu === "area") {
+        closeAreaNav();
+      }
+      else if (initedObj.currentOpenedMenu === "node") {
+        closeSubareaNav();
+      }
+      else if (initedObj.currentOpenedMenu === "record") {
+        closeRecordNav();
+      }
+  
+    });
+  });
+</script>
+</body>
+
+</html>
