@@ -6,6 +6,11 @@ import moment from 'moment';
 
 
 function SubmitReplyForm(scope){
+  scope.isWarningVisible = false;
+  if(!scope.minutes || scope.minutes === "0" || scope.minutes === 0){
+    scope.isWarningVisible = true;
+    return;
+  }
   let storeState = scope.store.getState();
   let requestConfig = {
     headers: {
@@ -67,7 +72,7 @@ export class WvAddNew {
   @Prop({ context: 'store' }) store: Store;
 
   @State() isReplyBoxVisible: boolean =  false;
-  @State() isReplyBtnDisabled: boolean = true;
+  @State() isWarningVisible: boolean =  false;
   @State() minutes: number = null;
   @State() isBillable:boolean = true;
   @State() taskBody:string = "";
@@ -90,7 +95,7 @@ export class WvAddNew {
     let getFormEl = document.getElementById("form-timelog-add");
     if(getFormEl){
       getFormEl.addEventListener('keydown', function(ev){
-        if (ev.keyCode == 13 && ev.ctrlKey && !scope.isReplyBtnDisabled) {
+        if (ev.keyCode == 13 && ev.ctrlKey) {
           //Blur both inputs so values can be set
           document.getElementById("wv-timelog-minutes").blur();
           document.getElementById("wv-timelog-body").blur();
@@ -125,11 +130,9 @@ export class WvAddNew {
     var parsed = parseInt(ev.target.value);
     if(!isNaN(parsed) && parsed > 0){
       this.minutes = parsed;
-      this.isReplyBtnDisabled = false;
     }
     else{
       this.minutes = null;
-      this.isReplyBtnDisabled = true;
     }
   }
 
@@ -216,9 +219,10 @@ export class WvAddNew {
                   <div class="form-group erp-field">
                     <textarea class="form-control" id="wv-timelog-body" onChange={(e) => scope.bodyChange(e)}>{scope.taskBody}</textarea>
                   </div>
+                  <div class={"alert alert-danger " + (scope.isWarningVisible ? "" : "d-none")}>Minutes are required or need to be more than 0</div>
                   <div class="wv-field-html-toolbar mt-2">
                     <div class="content">
-                      <button type="submit" class="btn btn-sm btn-primary" disabled={scope.isReplyBtnDisabled}>Submit</button>
+                      <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                       <button type="button" class="btn btn-sm btn-link" onClick={(e) => scope.ReplyLinkHandler(e)}>Cancel</button>
                     </div>
                     <div class={"note "}>Ctrl+Enter to submit</div>

@@ -129,7 +129,7 @@ function dragula (initialContainers, options) {
     // truthy check fixes #239, equality fixes #207
 	if ((e.clientX !== void 0 && Math.abs(e.clientX - _moveX) <= (o.slideFactorX || 0)) &&
        (e.clientY !== void 0 && Math.abs(e.clientY - _moveY) <= (o.slideFactorY || 0))) {
-		   console.log("boz");
+		   //console.log("boz");
       return;
     }
     if (o.ignoreInputTextSelection) {
