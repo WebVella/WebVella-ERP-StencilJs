@@ -97,10 +97,16 @@ export default class NodeUtils {
         let nodeDesignTemplate = document.getElementById("node-design-" + nodeId);
         let nodeDesignStack = document.getElementById("wv-node-design-stack");
         if(nodeDesignTemplate && nodeDesignTemplate.parentElement.id === "wv-node-" + nodeId && nodeDesignStack){
-            nodeDesignStack.appendChild(nodeDesignTemplate);
+            window.setTimeout(function(){ // trying to fix the empty node after append
+                nodeDesignStack.appendChild(nodeDesignTemplate);
+             },5);
             //console.log("success to stack " + nodeId);
             return true;
         }     
+        if(nodeDesignTemplate && nodeDesignTemplate.parentElement.id === "wv-node-design-stack" && nodeDesignStack){
+            //Already in stack
+            return true;
+        }             
         if(!nodeDesignStack){
             console.error("stack is missing ");    
         }
@@ -119,13 +125,15 @@ export default class NodeUtils {
         let nodeDesignTemplate = document.getElementById("node-design-" + nodeId);
         let nodeContainerPlaceholder = document.getElementById("wv-node-" + nodeId);
         if(nodeDesignTemplate && nodeDesignTemplate.parentElement.id === "wv-node-design-stack" && nodeContainerPlaceholder){
-            nodeContainerPlaceholder.appendChild(nodeDesignTemplate);
+            window.setTimeout(function(){ // trying to fix the empty node after append
+                nodeContainerPlaceholder.appendChild(nodeDesignTemplate);
+            },5);
             //console.log("success from stack " + nodeId);
             return true;
 
         }  
         if(nodeDesignTemplate && nodeDesignTemplate.parentElement.id === "wv-node-" + nodeId){
-            //console.log("no need from stack " + nodeId);
+            console.log("no need from stack " + nodeId);
             return true; //node is already in place
         }
         if(!nodeContainerPlaceholder){

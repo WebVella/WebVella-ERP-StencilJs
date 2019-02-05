@@ -25,7 +25,7 @@
     "redux": "~4.0.1"
   },
   "devDependencies": {
-    "@stencil/core": "0.17.0",
+    "@stencil/core": "0.17.1",
     "rollup-plugin-node-builtins": "~2.1.2",
     "rollup-plugin-node-globals": "~1.4.0",
     "supports-color": "~6.1.0"
