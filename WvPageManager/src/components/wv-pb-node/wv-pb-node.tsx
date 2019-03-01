@@ -85,7 +85,7 @@ function LoadTemplate(scope){
     @Prop() nodeId:string;
 
     @State() isLoading: boolean = false;
-    @State() reloadNodeIdList:string;
+    @State() reloadNodeIdList: Array<string> = new Array<string>();
 
     removeReloadNodeIds:Action;
 

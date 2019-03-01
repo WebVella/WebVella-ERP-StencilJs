@@ -147,14 +147,12 @@ function RecalculateComponentList(scope){
         if(backdrop){
           backdrop.parentNode.removeChild(backdrop);        
         }          
-        RecalculateComponentList(scope);
     }
 
     cancelNodeCreateHandler(event:UIEvent){
       event.preventDefault();
       event.stopPropagation();    
       this.filterString = "";
-      RecalculateComponentList(this);
       this.setNodeCreation(null);
     }    
 
@@ -163,7 +161,6 @@ function RecalculateComponentList(scope){
       event.stopPropagation();    
       this.filterString = event.target.value;  
       this.page = 1;
-      RecalculateComponentList(this);
     }
 
     selectComponent(event:UIEvent, component: Object){
@@ -171,14 +168,12 @@ function RecalculateComponentList(scope){
       event.stopPropagation();       
       AddNewComponent(this,component);
       this.filterString = "";
-      RecalculateComponentList(this);
     }
 
     changeSort(ev,sort){
       ev.preventDefault();
       this.sort = sort;
       this.page = 1;
-      RecalculateComponentList(this);
     }
 
     changePage(ev,page){
@@ -186,12 +181,12 @@ function RecalculateComponentList(scope){
       if(page > 0){
         this.page = page;
       }
-      RecalculateComponentList(this);
     }
 
 
     render() {
         let scope = this;
+        RecalculateComponentList(scope);
         let showModal = scope.isCreateModalVisible;
         if(!showModal){
             scope.focused = false;

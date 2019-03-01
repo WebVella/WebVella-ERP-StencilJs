@@ -17,15 +17,16 @@
     "test.watch": "stencil test --spec --e2e --watchAll"
   },
   "dependencies": {
-    "@stencil/redux": "~0.0.4",
+    "@stencil/redux": "~0.1.1",
     "axios": "~0.18.0",
     "dragula": "~3.7.2",
     "hash-sum": "~1.0.2",
     "lodash": "~4.17.11",
-    "redux": "~4.0.1"
+    "redux": "~4.0.1",
+    "moment": "2.24.0"
   },
   "devDependencies": {
-    "@stencil/core": "0.17.1",
+    "@stencil/core": "0.18.0",
     "rollup-plugin-node-builtins": "~2.1.2",
     "rollup-plugin-node-globals": "~1.4.0",
     "supports-color": "~6.1.0"

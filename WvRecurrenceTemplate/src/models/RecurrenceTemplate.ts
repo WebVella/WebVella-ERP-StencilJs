@@ -3,8 +3,8 @@ export default class RecurrenceTemplate {
     end_type: number = 0;
     end_date: string = null;
     end_count: number = 1;
-    repeat_period: number = 0;
-    repeat_count: number = 1;
+    repeat_period_type: number = 0;
+    interval: number = 1;
     timespan_start: number = null;
     timespan_end: number = null;
     allow_monday: boolean = true;

@@ -37,7 +37,7 @@ export class WvDatasourceManage {
       //Test values follow
       // this.initialType = 1;
       // this.recurrence.type = 7;
-      // this.recurrence.repeat_period = 4;
+      // this.recurrence.repeat_period_type = 4;
       //End test values
 
       this.hiddenValue = JSON.stringify(this.recurrence);
@@ -103,13 +103,13 @@ export class WvDatasourceManage {
                     <label class="col-12 col-sm-auto col-form-label label-horizontal pr-0 pr-sm-2">Repeat every:</label>
                     <div class="col">
                       <div class="input-group">
-                        <input class="form-control flex-grow-0" style={{"width":"80px"}} value={scope.recurrence.repeat_count}></input>
+                        <input class="form-control flex-grow-0" style={{"width":"80px"}} value={scope.recurrence.interval}  onChange={(e)=> scope.valueChangeHandler(e,"interval","int")}></input>
                         <span class="input-group-prepend input-group-append" ><span class="input-group-text p-0" style={{"width":"5px"}}></span></span>
-                        <select class="form-control form-control-sm  flex-grow-0" style={{"width":"100px"}} onChange={(e)=> scope.valueChangeHandler(e,"repeat_period","int")}>
+                        <select class="form-control form-control-sm  flex-grow-0" style={{"width":"100px"}} onChange={(e)=> scope.valueChangeHandler(e,"repeat_period_type","int")}>
                           {
                             scope.periodTypeSelectOptions.map(function(option: SelectOption,index){
                               return(
-                                <option key={index} value={option.value} selected={option.value == scope.recurrence.repeat_period.toString()}>{option.label}</option>
+                                <option key={index} value={option.value} selected={option.value == scope.recurrence.repeat_period_type.toString()}>{option.label}</option>
                               );
                             })
                           }
@@ -118,7 +118,7 @@ export class WvDatasourceManage {
                     </div>
                   </div>                
 
-                  <div class={"form-group erp-field label-horizontal row no-gutters form mt-3 " + (scope.recurrence.repeat_period === 4 ? "" : "d-none")}>
+                  <div class={"form-group erp-field label-horizontal row no-gutters form mt-3 " + (scope.recurrence.repeat_period_type === 4 ? "" : "d-none")}>
                     <label class="col-12 col-sm-auto col-form-label label-horizontal pr-0 pr-sm-2"></label>
                     <div class="col">
                       <div class="form-check form-check-inline">
@@ -151,7 +151,7 @@ export class WvDatasourceManage {
                       </div>                                                                                                                                      
                     </div>                  
                   </div>                  
-                  <div class={"form-group erp-field label-horizontal row no-gutters form mt-3 " + (scope.recurrence.repeat_period === 5 ? "" : "d-none")}>
+                  <div class={"form-group erp-field label-horizontal row no-gutters form mt-3 " + (scope.recurrence.repeat_period_type === 5 ? "" : "d-none")}>
                     <label class="col-12 col-sm-auto col-form-label label-horizontal pr-0 pr-sm-2"></label>
                     <div class="col">
                       <div class="form-check form-check-inline">

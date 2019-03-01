@@ -1,5 +1,6 @@
 import * as actionType from "./action-types";
 import _ from "lodash";
+import moment from "moment";
 // import sum from "hash-sum";
 
 
@@ -103,6 +104,15 @@ const rootReducer = (state = initialState, action) => {
           }         
           newState["isCreateModalVisible"] = false;          
           newState["createdNode"] = null;
+
+          //Set usage counters in library
+          let componentName = node["component_name"];
+          let libraryComponentIndex = _.findIndex(newState["library"],function(record){ return record["name"] === componentName})
+          if(libraryComponentIndex > -1){
+            newState["library"][libraryComponentIndex]["usage_counter"] ++;
+            newState["library"][libraryComponentIndex]["last_used_on"] = moment().format('YYYY-MM-DDTHH:mm:ss'); //2019-02-06T15:12:10.000
+          }
+
       }
       return newState;   
     case actionType.REMOVE_NODE:

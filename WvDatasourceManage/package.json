@@ -19,12 +19,12 @@
     "axios": "~0.18.0",
     "lodash": "~4.17.11",
     "redux": "~4.0.1",
-    "rollup-plugin-node-builtins": "~2.1.2",
-    "rollup-plugin-node-globals": "~1.4.0",
-    "@stencil/redux": "~0.0.4"
+    "@stencil/redux": "~0.1.1"
   },
   "devDependencies": {
-    "@stencil/core": "0.17.0"
+    "@stencil/core": "0.18.0",
+    "rollup-plugin-node-builtins": "~2.1.2",
+    "rollup-plugin-node-globals": "~1.4.0"
   },
   "repository": {
     "type": "git",
