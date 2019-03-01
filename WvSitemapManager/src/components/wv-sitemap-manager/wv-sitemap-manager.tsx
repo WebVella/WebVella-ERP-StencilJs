@@ -1,4 +1,5 @@
 import { Component, Prop,State, Listen } from '@stencil/core';
+import axios from 'axios';
 
 @Component({
     tag: 'wv-sitemap-manager',
@@ -54,23 +55,20 @@ import { Component, Prop,State, Listen } from '@stencil/core';
           apiUrl+="/" + submittedArea["id"];
         }
         apiUrl+="?appId=" + this.appId;
-        
+        let requestConfig = {
+          headers: {
+              'Content-Type': 'application/json;charset=UTF-8',
+              'Accept-Encoding': 'gzip',
+              'Accept': 'application/json'
+          }
+        };         
+
         let thisEl = this;
-        fetch(apiUrl,
-            {
-              method: 'POST',
-              headers: new Headers({
-                'Content-Type': 'application/json',
-                'Accept-Encoding': 'gzip',
-                'Accept': 'application/json',
-              }),
-              body: JSON.stringify(submittedArea)
-            }          
-          )
+        let requestBody = JSON.stringify(submittedArea);
+        axios.post(apiUrl,requestBody,requestConfig)
           .then(
             function(response){
-              response.json().then(function(data) {
-                let responseData = data;
+                let responseData = response.data;
                 if(response.status !== 200 || responseData == null || !responseData["success"]){
                   thisEl.apiResponse = {...responseData}
                   thisEl.managedArea = {...submittedArea};
@@ -80,7 +78,7 @@ import { Component, Prop,State, Listen } from '@stencil/core';
                 thisEl.sitemapObj = {...responseData.object["sitemap"]};
                 thisEl.nodePageDict = {...responseData.object["node_page_dict"]};
                 thisEl.areaModalClose(); 
-              });                             
+              
             }
           )
           .catch(function(err) {
@@ -99,20 +97,17 @@ import { Component, Prop,State, Listen } from '@stencil/core';
         let areaId = event.detail;
         let apiUrl = this.apiRoot + "sitemap/area/" + areaId + "/delete" +"?appId=" + this.appId;
         let thisEl = this;
-        fetch(apiUrl,
-          {
-            method: 'POST',
-            headers: new Headers({
-              'Content-Type': 'application/json',
-              'Accept-Encoding': 'gzip',
-              'Accept': 'application/json',
-            })
-          }          
-        )
+        let requestConfig = {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Encoding': 'gzip',
+            'Accept': 'application/json',
+          }
+        };         
+        axios.post(apiUrl,null,requestConfig)
         .then(
           function(response){
-            response.json().then(function(data) {
-              let responseData = data;
+              let responseData = response.data;
               if(response.status !== 200 || responseData == null || !responseData["success"]){
                 alert(responseData.message);
                 return;               
@@ -121,7 +116,7 @@ import { Component, Prop,State, Listen } from '@stencil/core';
               thisEl.sitemapObj = {...responseData.object["sitemap"]};
               thisEl.nodePageDict = {...responseData.object["node_page_dict"]};
               thisEl.areaModalClose(); 
-            });                             
+                       
           }
         )
         .catch(function(err) {
@@ -155,22 +150,19 @@ import { Component, Prop,State, Listen } from '@stencil/core';
         }
         apiUrl+="?appId=" + this.appId + "&areaId=" + areaId;
         
+        let requestConfig = {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Encoding': 'gzip',
+            'Accept': 'application/json',
+          }
+        };   
+
         let thisEl = this;
-        fetch(apiUrl,
-            {
-              method: 'POST',
-              headers: new Headers({
-                'Content-Type': 'application/json',
-                'Accept-Encoding': 'gzip',
-                'Accept': 'application/json',
-              }),
-              body: JSON.stringify(submittedNode)
-            }          
-          )
+        axios.post(apiUrl,JSON.stringify(submittedNode),requestConfig)
           .then(
             function(response){
-              response.json().then(function(data) {
-                let responseData = data;
+                let responseData = response.data;
                 if(response.status !== 200 || responseData == null || !responseData["success"]){
                   thisEl.apiResponse = {...responseData}
                   thisEl.managedNodeObj = {...event.detail};
@@ -181,7 +173,6 @@ import { Component, Prop,State, Listen } from '@stencil/core';
                 thisEl.nodePageDict = {...responseData.object["node_page_dict"]};
                 thisEl.nodeModalCloseEventHandler(); 
                 thisEl.nodeAuxDataUpdateEventHandler(null);
-              });                             
             }
           )
           .catch(function(err) {
@@ -199,21 +190,20 @@ import { Component, Prop,State, Listen } from '@stencil/core';
         this.apiResponse = {message: "",errors: [],success:true};
         let nodeId = event.detail;
         let apiUrl = this.apiRoot + "sitemap/node/" + nodeId + "/delete" +"?appId=" + this.appId;
+
+        let requestConfig = {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept-Encoding': 'gzip',
+            'Accept': 'application/json',
+          }
+        };   
+
         let thisEl = this;
-        fetch(apiUrl,
-          {
-            method: 'POST',
-            headers: new Headers({
-              'Content-Type': 'application/json',
-              'Accept-Encoding': 'gzip',
-              'Accept': 'application/json',
-            })
-          }          
-        )
+        axios.post(apiUrl,null,requestConfig)
         .then(
           function(response){
-            response.json().then(function(data) {
-              let responseData = data;
+              let responseData = response.data;
               if(response.status !== 200 || responseData == null || !responseData["success"]){
                 alert(responseData.message);
                 return;               
@@ -222,7 +212,7 @@ import { Component, Prop,State, Listen } from '@stencil/core';
               thisEl.sitemapObj = {...responseData.object["sitemap"]};
               thisEl.nodePageDict = {...responseData.object["node_page_dict"]};
               thisEl.nodeModalCloseEventHandler(); 
-            });                             
+                         
           }
         )
         .catch(function(err) {
@@ -236,7 +226,8 @@ import { Component, Prop,State, Listen } from '@stencil/core';
           var newNodeAuxData = {
             allEntities:event.detail.allEntities,
             nodeTypes:event.detail.nodeTypes,
-            allPages:event.detail.allPages,
+            appPages:event.detail.appPages,
+            allEntityPages:event.detail.allEntityPages,
             nodePageDict:event.detail.nodePageDict
           }
 

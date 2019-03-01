@@ -60,7 +60,7 @@ import { Component, Prop,State, Event, EventEmitter } from '@stencil/core';
       }
         return(
           <div class="modal d-block">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-xl">
               <div class="modal-content">
                 <form onSubmit={(e)=> this.handleSubmit(e)}>
                   <div class="modal-header">

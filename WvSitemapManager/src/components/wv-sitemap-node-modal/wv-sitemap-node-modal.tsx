@@ -6,6 +6,8 @@ import {
   EventEmitter
 } from '@stencil/core';
 
+import axios from 'axios';
+
 @Component({
   tag: 'wv-sitemap-node-modal'
 })
@@ -64,7 +66,7 @@ export class WvSitemapNodeModal {
   LoadData(){
         let apiUrl = this.apiRoot + "sitemap/node/get-aux-info" + "?appId=" + this.appId;
         let thisEl = this;
-        fetch(apiUrl,
+        axios.get(apiUrl,
             {
               method: 'GET',
               headers: new Headers({
@@ -76,8 +78,7 @@ export class WvSitemapNodeModal {
           )
           .then(
             function(response){
-              response.json().then(function(data) {
-                let responseData = data;
+                let responseData = response.data;
                 if(response.status !== 200 || responseData == null || !responseData["success"]){
                   if(responseData != null){
                       alert(responseData["message"]);
@@ -91,11 +92,12 @@ export class WvSitemapNodeModal {
                 var dataAuxObj = {};
                 dataAuxObj["allEntities"] = responseData["object"]["all_entities"];
                 dataAuxObj["nodeTypes"] = responseData["object"]["node_types"];    
-                dataAuxObj["allPages"] = responseData["object"]["all_pages"];  
+                dataAuxObj["appPages"] = responseData["object"]["app_pages"];  
+                dataAuxObj["allEntityPages"] = responseData["object"]["all_entity_pages"];
                 dataAuxObj["nodePageDict"] = responseData["object"]["node_page_dict"];  
                 dataAuxObj["selectedNodeObj"] = thisEl.nodeObj;
                 thisEl.wvSitemapManagerNodeAuxDataUpdateEvent.emit(dataAuxObj);
-              });                             
+                   
             }
           )
           .catch(function(err) {
@@ -152,7 +154,7 @@ export class WvSitemapNodeModal {
     if(this.nodeAuxData == null){
         return(
             <div class="modal d-block">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <div class="modal-header"><h5 class="modal-title">{modalTitle}</h5></div>
                         <div class="modal-body" style={{minHeight:"300px"}}>
@@ -174,27 +176,55 @@ export class WvSitemapNodeModal {
     } 
         
     //Generate available page options
-    var allPagesPlusNode = [];
-    var addedPages = [];
+    let appPagesPlusNode = [];
+    let addedPages = [];
+    let entityListPages = [];
+    let entityCreatePages = [];
+    let entityDetailsPages = [];
+    let entityManagePages = [];
     this.modalNodeObj["node_pages"].forEach(element => {
-        allPagesPlusNode.push(element);
+        appPagesPlusNode.push(element);
         addedPages.push(element["value"]);
     });
-    this.nodeAuxData["allPages"].forEach(element => {
+    this.nodeAuxData["appPages"].forEach(element => {
         if(addedPages.length == 0 || (addedPages.length > 0 && addedPages.indexOf(element["page_id"]) === -1)){
             if(!element["node_id"] || element["node_id"] === this.modalNodeObj["node"]["id"]){
                 var selectOption = {
                     value: element["page_id"],
                     label:element["page_name"]
                 }
-                allPagesPlusNode.push(selectOption);
+                appPagesPlusNode.push(selectOption);
             }
         }
     });
+    this.nodeAuxData["allEntityPages"].forEach(element => {
+        if(String(this.modalNodeObj["node"]["type"]) === "1" && this.modalNodeObj["node"]["entity_id"]){
+            if(element["entity_id"] === this.modalNodeObj["node"]["entity_id"]){
+                switch(element["type"]){
+                    case "3":
+                        entityListPages.push(element);
+                        break;
+                    case "4":
+                        entityCreatePages.push(element);
+                        break;
+                    case "5":
+                        entityDetailsPages.push(element);
+                        break;
+                    case "6":
+                        entityManagePages.push(element);
+                        break;                                                                        
+                    default:
+                        break;
+                }
+            }
+        }
+
+    });
+
 
     return(
         <div class="modal d-block">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <form onSubmit={(e)=> this.handleSubmit(e)}>
                 <div class="modal-header">
@@ -266,7 +296,7 @@ export class WvSitemapNodeModal {
                                         <div class="form-group erp-field">
                                             <label class="control-label">App Pages without nodes</label>
                                             <select class="form-control" multiple name="pages" onChange={(event) => this.handleSelectChange(event)}>
-                                                {allPagesPlusNode.map(function(type) { 
+                                                {appPagesPlusNode.map(function(type) { 
                                                     let nodeSelected = false;
                                                     if(this.modalNodeObj["node"]["pages"] && this.modalNodeObj["node"]["pages"].length > 0 && this.modalNodeObj["node"]["pages"].indexOf(type.value) > -1){
                                                         nodeSelected = true;
@@ -292,8 +322,82 @@ export class WvSitemapNodeModal {
                             )
                             : null
                         }       
-                    </div>                
-                    <div class="alert alert-info">Label and Description translations, and access are currently not managable</div>
+                    </div>         
+                    {String(this.modalNodeObj["node"]["type"]) === "1" && this.modalNodeObj["node"]["entity_id"]
+                            ? (
+                                    <div>
+                                        <div class="row">
+                                                <div class="col-3">
+                                                    <div class="form-group erp-field">
+                                                        <label class="control-label">list pages</label>
+                                                        <select class="form-control" multiple name="entity_list_pages" onChange={(event) => this.handleSelectChange(event)}>
+                                                            {entityListPages.map(function(type) { 
+                                                                let nodeSelected = false;
+                                                                if(this.modalNodeObj["node"]["pages"] && this.modalNodeObj["node"]["pages"].length > 0 && this.modalNodeObj["node"]["pages"].indexOf(type.id) > -1){
+                                                                    nodeSelected = true;
+                                                                }
+                                                                return(
+                                                                    <option value={type["id"]} selected={nodeSelected}>{type["page_name"]}</option>
+                                                                )
+                                                            }.bind(this))}
+                                                        </select>    
+                                                    </div>                                        
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="form-group erp-field">
+                                                        <label class="control-label">create pages</label>
+                                                        <select class="form-control" multiple name="entity_create_pages" onChange={(event) => this.handleSelectChange(event)}>
+                                                            {entityListPages.map(function(type) { 
+                                                                let nodeSelected = false;
+                                                                if(this.modalNodeObj["node"]["pages"] && this.modalNodeObj["node"]["pages"].length > 0 && this.modalNodeObj["node"]["pages"].indexOf(type.id) > -1){
+                                                                    nodeSelected = true;
+                                                                }
+                                                                return(
+                                                                    <option value={type["id"]} selected={nodeSelected}>{type["page_name"]}</option>
+                                                                )
+                                                            }.bind(this))}
+                                                        </select>    
+                                                    </div>                                        
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="form-group erp-field">
+                                                        <label class="control-label">details pages</label>
+                                                        <select class="form-control" multiple name="entity_details_pages" onChange={(event) => this.handleSelectChange(event)}>
+                                                            {entityListPages.map(function(type) { 
+                                                                let nodeSelected = false;
+                                                                if(this.modalNodeObj["node"]["pages"] && this.modalNodeObj["node"]["pages"].length > 0 && this.modalNodeObj["node"]["pages"].indexOf(type.id) > -1){
+                                                                    nodeSelected = true;
+                                                                }
+                                                                return(
+                                                                    <option value={type["id"]} selected={nodeSelected}>{type["page_name"]}</option>
+                                                                )
+                                                            }.bind(this))}
+                                                        </select>    
+                                                    </div>                                        
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="form-group erp-field">
+                                                        <label class="control-label">manage pages</label>
+                                                        <select class="form-control" multiple name="entity_manage_pages" onChange={(event) => this.handleSelectChange(event)}>
+                                                            {entityListPages.map(function(type) { 
+                                                                let nodeSelected = false;
+                                                                if(this.modalNodeObj["node"]["pages"] && this.modalNodeObj["node"]["pages"].length > 0 && this.modalNodeObj["node"]["pages"].indexOf(type.id) > -1){
+                                                                    nodeSelected = true;
+                                                                }
+                                                                return(
+                                                                    <option value={type["id"]} selected={nodeSelected}>{type["page_name"]}</option>
+                                                                )
+                                                            }.bind(this))}
+                                                        </select>    
+                                                    </div>                                        
+                                                </div>                                                                                                                                                
+                                        </div>
+                                        <div class="go-gray"><i class="fa fa-info-circle go-blue"></i> If no page is selected in certain type, all will be used</div>
+                                   </div>
+                            )
+                            : null
+                        }                             
+                    <div class="alert alert-info d-none">Label and Description translations, and access are currently not managable</div>
                 </div>
 
                 {this.nodeAuxData == null 

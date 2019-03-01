@@ -15,9 +15,14 @@
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll"
   },
-  "dependencies": {},
+  "dependencies": {
+    "axios": "~0.18.0"
+  },
   "devDependencies": {
-    "@stencil/core": "0.18.0"
+    "@stencil/core": "0.18.0",
+    "rollup-plugin-node-builtins": "~2.1.2",
+    "rollup-plugin-node-globals": "~1.4.0",
+    "supports-color": "~6.1.0"    
   },
   "repository": {
     "type": "git",
