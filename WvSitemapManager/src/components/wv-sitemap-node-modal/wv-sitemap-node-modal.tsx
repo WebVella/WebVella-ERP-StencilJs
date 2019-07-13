@@ -3,10 +3,62 @@ import {
   Prop,
   State,
   Event,
-  EventEmitter
+  EventEmitter, h
 } from '@stencil/core';
 
 import axios from 'axios';
+import _ from "lodash";
+
+function InitIconSelect(scope){
+    let selectId = "#modal-icon-class-select";
+    //Hack as the default on Change is not triggering
+    (window as any).$(selectId).on('select2:select', function (event) {
+        scope.modalNodeObj["node"]["icon_class"] = event.target.value;
+   });      
+    (window as any).$(selectId).select2({
+		ajax: {
+			url: '/api/v3.0/p/core/select/font-awesome-icons',
+			data: function (params) {
+				var query = {
+					search: params.term,
+					page: params.page || 1
+				};
+				return query;
+			},
+			dataType: 'json',
+			processResults: function (data) {
+				// Tranforms the top-level key of the response object from 'items' to 'results'
+				var results = [];
+				if(data.object.results){
+					_.forEach(data.object.results,function(rec){
+						results.push({id:rec.class,text:rec.class,name:rec.name});
+					});
+				}
+
+				data.object.results = results;
+				return data.object;
+			}
+		},
+		//language: "bg",
+		placeholder: 'not-selected',
+		allowClear: true,
+		closeOnSelect: true,
+		width: 'element',
+		escapeMarkup: function (markup) {
+			return markup;
+		},
+		templateResult: function (state) {
+            if(!state){
+                return null
+            }
+			var $state = (window as any).$(
+				'<div class="erp-ta-icon-result"><div class="icon-wrapper"><i class="icon fa-fw ' + state.id + '"/></div><div class="meta"><div class="title">' + state.id + '</div><div class="entity go-gray">' + state.name + '</div></div>'
+			);
+			return $state;
+		}
+
+    });
+}
 
 @Component({
   tag: 'wv-sitemap-node-modal'
@@ -54,13 +106,20 @@ export class WvSitemapNodeModal {
             });            
         }           
    }
+   componentDidLoad(){
+       let scope = this;
+       window.setTimeout(function(){
+        InitIconSelect(scope);
+       },100);
+   }
   
   componentDidUnload(){
     var backdropId = "wv-sitemap-manager-area-modal-backdrop";
     var backdropDomEl = document.getElementById(backdropId);  
     if(backdropDomEl){
       backdropDomEl.remove();
-    }                
+    }           
+    (window as any).$('#modal-icon-class-select').select2('destroy');     
   }
   
   LoadData(){
@@ -97,7 +156,6 @@ export class WvSitemapNodeModal {
                 dataAuxObj["nodePageDict"] = responseData["object"]["node_page_dict"];  
                 dataAuxObj["selectedNodeObj"] = thisEl.nodeObj;
                 thisEl.wvSitemapManagerNodeAuxDataUpdateEvent.emit(dataAuxObj);
-                   
             }
           )
           .catch(function(err) {
@@ -117,6 +175,7 @@ export class WvSitemapNodeModal {
   handleChange(event) {
     let propertyName = event.target.getAttribute('name');
     this.modalNodeObj["node"][propertyName] = event.target.value;
+
   }
 
   handleCheckboxChange(event) {
@@ -139,7 +198,8 @@ export class WvSitemapNodeModal {
     if(!newObj["node"][propertyName] || newObj["node"][propertyName].length === 0){
         newObj["node"][propertyName] = null;
     }
-    else if(newObj["node"][propertyName].length == 1 && propertyName != "pages"){
+    else if(newObj["node"][propertyName].length == 1 && propertyName != "pages" && propertyName != "entity_list_pages" && propertyName != "entity_create_pages"
+        && propertyName != "entity_details_pages" && propertyName != "entity_manage_pages"){
         newObj["node"][propertyName] = newObj["node"][propertyName][0];        
     }    
 
@@ -250,7 +310,13 @@ export class WvSitemapNodeModal {
                         <div class="col col-sm-6">
                             <div class="form-group erp-field">
                                 <label class="control-label">Icon Class</label>
-                                <input class="form-control" name="icon_class" value={this.modalNodeObj["node"]["icon_class"]} onInput={(event) => this.handleChange(event)}/>
+                                <select id="modal-icon-class-select" class="form-control" name="icon_class" onChange={(event) => this.handleChange(event)}>
+                                    {
+                                        this.modalNodeObj["node"]["icon_class"] ?(
+                                            <option value={this.modalNodeObj["node"]["icon_class"]}>{this.modalNodeObj["node"]["icon_class"]}</option>
+                                        ):null
+                                    }
+                                </select>
                             </div>
                         </div>
                         <div class="col col-sm-6">
@@ -333,11 +399,12 @@ export class WvSitemapNodeModal {
                                                         <select class="form-control" multiple name="entity_list_pages" onChange={(event) => this.handleSelectChange(event)}>
                                                             {entityListPages.map(function(type) { 
                                                                 let nodeSelected = false;
-                                                                if(this.modalNodeObj["node"]["pages"] && this.modalNodeObj["node"]["pages"].length > 0 && this.modalNodeObj["node"]["pages"].indexOf(type.id) > -1){
+                                                                if(this.modalNodeObj["node"]["entity_list_pages"] && this.modalNodeObj["node"]["entity_list_pages"].length > 0 
+                                                                    && this.modalNodeObj["node"]["entity_list_pages"].indexOf(type.page_id) > -1){
                                                                     nodeSelected = true;
                                                                 }
                                                                 return(
-                                                                    <option value={type["id"]} selected={nodeSelected}>{type["page_name"]}</option>
+                                                                    <option value={type["page_id"]} selected={nodeSelected}>{type["page_name"]}</option>
                                                                 )
                                                             }.bind(this))}
                                                         </select>    
@@ -347,13 +414,14 @@ export class WvSitemapNodeModal {
                                                     <div class="form-group erp-field">
                                                         <label class="control-label">create pages</label>
                                                         <select class="form-control" multiple name="entity_create_pages" onChange={(event) => this.handleSelectChange(event)}>
-                                                            {entityListPages.map(function(type) { 
+                                                            {entityCreatePages.map(function(type) { 
                                                                 let nodeSelected = false;
-                                                                if(this.modalNodeObj["node"]["pages"] && this.modalNodeObj["node"]["pages"].length > 0 && this.modalNodeObj["node"]["pages"].indexOf(type.id) > -1){
+                                                                if(this.modalNodeObj["node"]["entity_create_pages"] && this.modalNodeObj["node"]["entity_create_pages"].length > 0 
+                                                                    && this.modalNodeObj["node"]["entity_create_pages"].indexOf(type.page_id) > -1){
                                                                     nodeSelected = true;
                                                                 }
                                                                 return(
-                                                                    <option value={type["id"]} selected={nodeSelected}>{type["page_name"]}</option>
+                                                                    <option value={type["page_id"]} selected={nodeSelected}>{type["page_name"]}</option>
                                                                 )
                                                             }.bind(this))}
                                                         </select>    
@@ -363,13 +431,14 @@ export class WvSitemapNodeModal {
                                                     <div class="form-group erp-field">
                                                         <label class="control-label">details pages</label>
                                                         <select class="form-control" multiple name="entity_details_pages" onChange={(event) => this.handleSelectChange(event)}>
-                                                            {entityListPages.map(function(type) { 
+                                                            {entityDetailsPages.map(function(type) { 
                                                                 let nodeSelected = false;
-                                                                if(this.modalNodeObj["node"]["pages"] && this.modalNodeObj["node"]["pages"].length > 0 && this.modalNodeObj["node"]["pages"].indexOf(type.id) > -1){
+                                                                if(this.modalNodeObj["node"]["entity_details_pages"] && this.modalNodeObj["node"]["entity_details_pages"].length > 0 
+                                                                    && this.modalNodeObj["node"]["entity_details_pages"].indexOf(type.page_id) > -1){
                                                                     nodeSelected = true;
                                                                 }
                                                                 return(
-                                                                    <option value={type["id"]} selected={nodeSelected}>{type["page_name"]}</option>
+                                                                    <option value={type["page_id"]} selected={nodeSelected}>{type["page_name"]}</option>
                                                                 )
                                                             }.bind(this))}
                                                         </select>    
@@ -379,13 +448,14 @@ export class WvSitemapNodeModal {
                                                     <div class="form-group erp-field">
                                                         <label class="control-label">manage pages</label>
                                                         <select class="form-control" multiple name="entity_manage_pages" onChange={(event) => this.handleSelectChange(event)}>
-                                                            {entityListPages.map(function(type) { 
+                                                            {entityManagePages.map(function(type) { 
                                                                 let nodeSelected = false;
-                                                                if(this.modalNodeObj["node"]["pages"] && this.modalNodeObj["node"]["pages"].length > 0 && this.modalNodeObj["node"]["pages"].indexOf(type.id) > -1){
+                                                                if(this.modalNodeObj["node"]["entity_manage_pages"] && this.modalNodeObj["node"]["entity_manage_pages"].length > 0 
+                                                                && this.modalNodeObj["node"]["entity_manage_pages"].indexOf(type.page_id) > -1){
                                                                     nodeSelected = true;
                                                                 }
                                                                 return(
-                                                                    <option value={type["id"]} selected={nodeSelected}>{type["page_name"]}</option>
+                                                                    <option value={type["page_id"]} selected={nodeSelected}>{type["page_name"]}</option>
                                                                 )
                                                             }.bind(this))}
                                                         </select>    
@@ -405,8 +475,8 @@ export class WvSitemapNodeModal {
                     :(                
                     <div class="modal-footer">
                         <div>
-                            <button type="submit" class={"btn btn-green btn-sm " + (this.modalNodeObj["node"] == null ? "" :"d-none")}><span class="ti-plus"></span> Create node</button>
-                            <button type="submit" class={"btn btn-blue btn-sm " + (this.modalNodeObj["node"] != null ? "" :"d-none")}><span class="ti-save"></span> Save node</button>
+                            <button type="submit" class={"btn btn-green btn-sm " + (this.modalNodeObj["node"] == null ? "" :"d-none")}><span class="fa fa-plus"></span> Create node</button>
+                            <button type="submit" class={"btn btn-blue btn-sm " + (this.modalNodeObj["node"] != null ? "" :"d-none")}><span class="far fa-disk-alt"></span> Save node</button>
                             <button type="button" class="btn btn-white btn-sm ml-1" onClick={() => this.closeModal()}>Close</button>
                         </div>
                     </div>

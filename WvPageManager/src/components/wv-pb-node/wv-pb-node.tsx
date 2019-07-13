@@ -1,4 +1,5 @@
-import { Component,Prop, State,Element,Watch } from '@stencil/core';
+import { Component,Prop, State,Element,Watch, h } from '@stencil/core';
+import '@stencil/redux';//fixing undefined error
 import { Store, Action} from '@stencil/redux';
 import _ from 'lodash';
 import axios from 'axios';
@@ -100,6 +101,7 @@ function LoadTemplate(scope){
                 reloadNodeIdList:state.reloadNodeIdList
             };
         });       
+        
         this.store.mapDispatchToProps(this, {
             removeReloadNodeIds:action.removeReloadNodeIds
           });        

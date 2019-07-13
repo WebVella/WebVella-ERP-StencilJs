@@ -1,12 +1,15 @@
 {
   "name": "wv-post-list",
-  "version": "0.0.1",
+  "unpkg": "dist/wv-post-list/wv-post-list.js",
+  "version": "1.0.0",
   "description": "Stencil Component Starter",
-  "module": "dist/esm/index.js",
   "main": "dist/index.js",
-  "unpkg": "dist/ionic.js",
+  "module": "dist/index.mjs",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
   "types": "dist/types/components.d.ts",
   "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
   "files": [
     "dist/"
   ],
@@ -17,17 +20,15 @@
     "test.watch": "stencil test --spec --e2e --watchAll"
   },
   "dependencies": {
-    "moment": "~2.24.0",
-    "axios": "~0.18.0",
-    "lodash": "~4.17.11",
-    "redux": "~4.0.1",
-    "@stencil/redux": "~0.1.1"
+    "moment": "2.24.0",
+    "axios": "0.19.0",
+    "lodash": "4.17.14",
+    "redux": "4.0.4",
+    "redux-thunk": "2.3.0",
+    "@stencil/redux": "0.1.1"
   },
   "devDependencies": {
-    "@stencil/core": "0.18.0",
-    "rollup-plugin-node-builtins": "~2.1.2",
-    "rollup-plugin-node-globals": "~1.4.0",
-    "supports-color": "~6.1.0"
+    "@stencil/core": "1.1.6"
   },
   "license": "MIT"
 }

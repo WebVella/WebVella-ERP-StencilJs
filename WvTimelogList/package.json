@@ -1,33 +1,36 @@
 {
-  "name": "wv-post-list",
-  "version": "0.0.1",
+  "name": "wv-timelog-list",
+  "version": "1.0.0",
   "description": "Stencil Component Starter",
-  "module": "dist/esm/index.js",
-  "main": "dist/index.js",
-  "unpkg": "dist/ionic.js",
+  "main": "dist/wv-timelog-list.js",
+  "module": "dist/index.mjs",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
   "types": "dist/types/components.d.ts",
   "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/wv-timelog-list/wv-timelog-list.js",
+  "prerenderIndex": null,
   "files": [
-    "dist/"
+    "dist/",
+    "loader/"
   ],
   "scripts": {
-    "build": "stencil build --docs",
+    "build": "stencil build",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll"
   },
   "dependencies": {
-    "moment": "~2.24.0",
-    "axios": "~0.18.0",
-    "lodash": "~4.17.11",
-    "redux": "~4.0.1",
-    "@stencil/redux": "~0.1.1"
+    "@stencil/redux": "0.1.1",
+    "axios": "0.19.0",
+    "lodash": "4.17.14",
+    "moment": "2.24.0",
+    "redux": "4.0.4",
+    "redux-thunk": "2.3.0"
   },
   "devDependencies": {
-    "@stencil/core": "0.18.0",
-    "rollup-plugin-node-builtins": "~2.1.2",
-    "rollup-plugin-node-globals": "~1.4.0",
-    "supports-color": "~6.1.0"
+    "@stencil/core": "1.1.6"
   },
   "license": "MIT"
 }

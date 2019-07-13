@@ -5,13 +5,10 @@
  */
 
 
-import '@stencil/core';
-
-
+import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-
   interface WvLazyload {
     'componentName': string;
     'entityId': string;
@@ -21,7 +18,23 @@ export namespace Components {
     'recordId': string;
     'siteRootUrl': string;
   }
-  interface WvLazyloadAttributes extends StencilHTMLAttributes {
+}
+
+declare global {
+
+
+  interface HTMLWvLazyloadElement extends Components.WvLazyload, HTMLStencilElement {}
+  var HTMLWvLazyloadElement: {
+    prototype: HTMLWvLazyloadElement;
+    new (): HTMLWvLazyloadElement;
+  };
+  interface HTMLElementTagNameMap {
+    'wv-lazyload': HTMLWvLazyloadElement;
+  }
+}
+
+declare namespace LocalJSX {
+  interface WvLazyload extends JSXBase.HTMLAttributes<HTMLWvLazyloadElement> {
     'componentName'?: string;
     'entityId'?: string;
     'nodeId'?: string;
@@ -30,39 +43,19 @@ export namespace Components {
     'recordId'?: string;
     'siteRootUrl'?: string;
   }
+
+  interface IntrinsicElements {
+    'wv-lazyload': WvLazyload;
+  }
 }
 
-declare global {
-  interface StencilElementInterfaces {
-    'WvLazyload': Components.WvLazyload;
-  }
-
-  interface StencilIntrinsicElements {
-    'wv-lazyload': Components.WvLazyloadAttributes;
-  }
+export { LocalJSX as JSX };
 
 
-  interface HTMLWvLazyloadElement extends Components.WvLazyload, HTMLStencilElement {}
-  var HTMLWvLazyloadElement: {
-    prototype: HTMLWvLazyloadElement;
-    new (): HTMLWvLazyloadElement;
-  };
-
-  interface HTMLElementTagNameMap {
-    'wv-lazyload': HTMLWvLazyloadElement
-  }
-
-  interface ElementTagNameMap {
-    'wv-lazyload': HTMLWvLazyloadElement;
-  }
-
-
+declare module "@stencil/core" {
   export namespace JSX {
-    export interface Element {}
-    export interface IntrinsicElements extends StencilIntrinsicElements {
-      [tagName: string]: any;
-    }
+    interface IntrinsicElements extends LocalJSX.IntrinsicElements {}
   }
-  export interface HTMLAttributes extends StencilHTMLAttributes {}
-
 }
+
+

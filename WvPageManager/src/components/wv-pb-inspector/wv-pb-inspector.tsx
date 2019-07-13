@@ -1,4 +1,5 @@
-import { Component, Prop,State } from '@stencil/core';
+import { Component, Prop,State, h } from '@stencil/core';
+import '@stencil/redux';//fixing undefined error
 import { Store,Action } from '@stencil/redux';
 import _ from 'lodash';
 import axios from 'axios';
@@ -58,7 +59,7 @@ function RenderAction(props){
   let scope = props.scope;
   if(scope.activeNodeId){
     return(
-      <a class="go-red" href="#" onClick={(e) => {if(window.confirm('Are you sure you wish to delete this component?')) scope.deleteNodeHandler(e)}}><i class="ti-trash"></i> delete node</a>
+      <a class="go-red" href="#" onClick={(e) => {if(window.confirm('Are you sure you wish to delete this component?')) scope.deleteNodeHandler(e)}}><i class="fa fa-trash-alt"></i> delete node</a>
     )
   }
 }
@@ -265,7 +266,8 @@ function LoadOptionsTemplate(scope){
           return { 
               activeNodeId:state.activeNodeId
           };
-      });      
+      });     
+       
       scope.store.mapDispatchToProps(this, {
         removeNode:action.removeNode,
         setOptionsModalState:action.setOptionsModalState,

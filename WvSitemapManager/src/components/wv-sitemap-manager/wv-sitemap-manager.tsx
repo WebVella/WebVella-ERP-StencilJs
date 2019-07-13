@@ -1,4 +1,4 @@
-import { Component, Prop,State, Listen } from '@stencil/core';
+import { Component, Prop,State, Listen, h } from '@stencil/core';
 import axios from 'axios';
 
 @Component({
@@ -58,7 +58,6 @@ import axios from 'axios';
         let requestConfig = {
           headers: {
               'Content-Type': 'application/json;charset=UTF-8',
-              'Accept-Encoding': 'gzip',
               'Accept': 'application/json'
           }
         };         
@@ -100,7 +99,6 @@ import axios from 'axios';
         let requestConfig = {
           headers: {
             'Content-Type': 'application/json',
-            'Accept-Encoding': 'gzip',
             'Accept': 'application/json',
           }
         };         
@@ -143,6 +141,7 @@ import axios from 'axios';
       nodeSubmittedEventHandler(event:CustomEvent){
         this.apiResponse = {message: "",errors: [],success:true};
         let submittedNode = event.detail.node;
+                       
         let areaId = event.detail.areaId;
         let apiUrl = this.apiRoot + "sitemap/node";
         if(submittedNode != null && submittedNode["id"] != null){
@@ -153,12 +152,12 @@ import axios from 'axios';
         let requestConfig = {
           headers: {
             'Content-Type': 'application/json',
-            'Accept-Encoding': 'gzip',
             'Accept': 'application/json',
           }
         };   
 
         let thisEl = this;
+
         axios.post(apiUrl,JSON.stringify(submittedNode),requestConfig)
           .then(
             function(response){
@@ -194,7 +193,6 @@ import axios from 'axios';
         let requestConfig = {
           headers: {
             'Content-Type': 'application/json',
-            'Accept-Encoding': 'gzip',
             'Accept': 'application/json',
           }
         };   

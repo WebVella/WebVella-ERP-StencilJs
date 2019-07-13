@@ -1,15 +1,16 @@
-import { Component,Prop,State,Watch,Element } from '@stencil/core';
+import { Component,Prop,State,Watch,h } from '@stencil/core';
+import '@stencil/redux';//fixing undefined error
 import { Store  } from '@stencil/redux';
 import _ from 'lodash';
 @Component({
   tag: 'wv-datasource-step2'
 })
 export class WvDatasourceStep2 {
-  @Element() el!: HTMLStencilElement;
   @Prop({ context: 'store' }) store: Store;
   @State() datasourceId: string = null;
   @State() libraryVersion: number = 0;
   @State() isParamInfoVisible = false;
+  @State() renderIndex:number = 1;
 
   componentWillLoad(){
     //Connect store
@@ -29,7 +30,7 @@ export class WvDatasourceStep2 {
   @Watch("libraryVersion")
   libraryVersionUpdate(){
     //Force unknow reason does not rerender on store change
-    this.el.forceUpdate();
+    this.renderIndex++;
   }
 
   showParamInfo(e: UIEvent){

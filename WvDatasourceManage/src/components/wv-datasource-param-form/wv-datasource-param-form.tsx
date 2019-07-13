@@ -1,4 +1,5 @@
-import { Component,Prop,State,Element,Watch } from '@stencil/core';
+import { Component,Prop,State,Watch, h } from '@stencil/core';
+import '@stencil/redux';//fixing undefined error
 import { Store,Action } from '@stencil/redux';
 import * as action from '../../store/actions';
 import axios from 'axios';
@@ -8,9 +9,9 @@ import axios from 'axios';
   tag: 'wv-datasource-param-form'
 })
 export class WvDatasourceParamForm {
-  @Element() el!: HTMLStencilElement;
   @Prop({ context: 'store' }) store: Store;
   @State() datasourceId: string = null;
+  @State() renderIndex:number = 1;
 
   setLibrary:Action;
 
@@ -48,7 +49,7 @@ export class WvDatasourceParamForm {
   @Watch("datasourceId")
   libraryVersionUpdate(){
     //Force unknow reason does not rerender on store change
-    this.el.forceUpdate();
+    this.renderIndex++;
   }
 
   render() {

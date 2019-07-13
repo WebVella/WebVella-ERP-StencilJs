@@ -1,4 +1,57 @@
-import { Component, Prop,State, Event, EventEmitter } from '@stencil/core';
+import { Component, Prop,State, Event, EventEmitter, h } from '@stencil/core';
+import _ from "lodash";
+
+function InitIconSelect(scope){
+  let selectId = "#modal-area-icon-class-select";
+  //Hack as the default on Change is not triggering
+  (window as any).$(selectId).on('select2:select', function (event) {
+    scope.modalArea["icon_class"] = event.target.value;
+ });   
+
+  (window as any).$(selectId).select2({
+  ajax: {
+    url: '/api/v3.0/p/core/select/font-awesome-icons',
+    data: function (params) {
+      var query = {
+        search: params.term,
+        page: params.page || 1
+      };
+      return query;
+    },
+    dataType: 'json',
+    processResults: function (data) {
+      // Tranforms the top-level key of the response object from 'items' to 'results'
+      var results = [];
+      if(data.object.results){
+        _.forEach(data.object.results,function(rec){
+          results.push({id:rec.class,text:rec.class,name:rec.name});
+        });
+      }
+
+      data.object.results = results;
+      return data.object;
+    }
+  },
+  //language: "bg",
+  placeholder: 'not-selected',
+  allowClear: true,
+  closeOnSelect: true,
+  width: 'element',
+  escapeMarkup: function (markup) {
+    return markup;
+  },
+  templateResult: function (state) {
+          if(!state){
+              return null
+          }
+    var $state = (window as any).$(
+      '<div class="erp-ta-icon-result"><div class="icon-wrapper"><i class="icon fa-fw ' + state.id + '"/></div><div class="meta"><div class="title">' + state.id + '</div><div class="entity go-gray">' + state.name + '</div></div>'
+    );
+    return $state;
+  }
+
+  });
+}
 
 @Component({
     tag: 'wv-sitemap-area-modal'
@@ -25,12 +78,20 @@ import { Component, Prop,State, Event, EventEmitter } from '@stencil/core';
       }      
     }
 
+    componentDidLoad(){
+      let scope = this;
+      window.setTimeout(function(){
+       InitIconSelect(scope);
+      },100)
+  }
+
     componentDidUnload(){
       var backdropId = "wv-sitemap-manager-area-modal-backdrop";
       var backdropDomEl = document.getElementById(backdropId);  
       if(backdropDomEl){
         backdropDomEl.remove();
       }                
+      (window as any).$('#modal-area-icon-class-select').select2('destroy');
     }
 
     closeModal(){
@@ -118,15 +179,21 @@ import { Component, Prop,State, Event, EventEmitter } from '@stencil/core';
                         <div class="col col-sm-6">
                           <div class="form-group erp-field">
                             <label class="control-label">Icon Class</label>
-                            <input class="form-control" name="icon_class" value={this.modalArea["icon_class"]} onInput={(event) => this.handleChange(event)}/>
+                            <select id="modal-area-icon-class-select" class="form-control" name="icon_class" onChange={(event) => this.handleChange(event)}>
+                                  {
+                                      this.modalArea["icon_class"] ?(
+                                          <option value={this.modalArea["icon_class"]}>{this.modalArea["icon_class"]}</option>
+                                      ):null
+                                  }
+                              </select>                            
                           </div>
                         </div>                              
                       </div>        
                       <div class="alert alert-info">Label and Description translations, and access are currently not managable</div>
                   </div>
                   <div class="modal-footer">
-                    <button type="submit" class={"btn btn-green btn-sm " + (this.area == null ? "" :"d-none")}><span class="ti-plus"></span> Create area</button>
-                    <button type="submit" class={"btn btn-blue btn-sm " + (this.area != null ? "" :"d-none")}><span class="ti-save"></span> Save area</button>
+                    <button type="submit" class={"btn btn-green btn-sm " + (this.area == null ? "" :"d-none")}><span class="fa fa-plus"></span> Create area</button>
+                    <button type="submit" class={"btn btn-blue btn-sm " + (this.area != null ? "" :"d-none")}><span class="far fa-save"></span> Save area</button>
                     <button type="button" class="btn btn-white btn-sm ml-1" onClick={() => this.closeModal()}>Close</button>
                   </div>
                 </form>

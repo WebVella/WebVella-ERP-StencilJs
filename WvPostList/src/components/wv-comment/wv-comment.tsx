@@ -1,4 +1,5 @@
-import { Component,Prop } from '@stencil/core';
+import { Component,Prop, h } from '@stencil/core';
+import '@stencil/redux';//fixing undefined error
 import { Store,Action } from '@stencil/redux';
 import moment from 'moment';
 import axios from 'axios';

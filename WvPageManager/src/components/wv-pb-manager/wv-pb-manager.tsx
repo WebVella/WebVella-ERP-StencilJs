@@ -1,4 +1,5 @@
-import { Component, Prop, State,Listen } from '@stencil/core';
+import { Component, Prop, State,Listen, h } from '@stencil/core';
+import '@stencil/redux';//fixing undefined error
 import { Store,Action } from '@stencil/redux';
 import { configureStore } from '../../store/index';
 import WvPbStore from '../../models/WvPbStore';
@@ -140,8 +141,6 @@ if(recordId){
 })
 export class WvPageManager {
   @Prop({ context: 'store' }) store: Store;
-  @Prop() libraryJson: string = "[]";
-  @Prop() pageNodesJson: string = "";
   @Prop() siteRootUrl:string;
   @Prop() pageId:string; 
   @Prop() recordId:string; 
@@ -155,11 +154,8 @@ export class WvPageManager {
   removeNode:Action;
 
   componentWillLoad() {
-    let library = JSON.parse(this.libraryJson);
-    let pageNodes = new Array<Object>();
-    if(this.pageNodesJson){
-      pageNodes = JSON.parse(this.pageNodesJson);
-    }    
+    let library = (window as any).PbManagerLibraryJson;
+    let pageNodes = (window as any).PbManagerPageNodesJson;
     //make node json options > objects
     _.forEach(pageNodes,function(node){
       if(typeof node["options"] !== 'object'){
@@ -188,6 +184,7 @@ export class WvPageManager {
         pageNodes:state.pageNodes
       };
     });      
+    
     this.store.mapDispatchToProps(this, {
       setDrake:action.setDrake,
       addReloadNodeIds:action.addReloadNodeIds,

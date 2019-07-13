@@ -5,46 +5,22 @@
  */
 
 
-import '@stencil/core';
-
-
+import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-
   interface WvSitemapAreaModal {
     'area': Object;
     'submitResponse': Object;
   }
-  interface WvSitemapAreaModalAttributes extends StencilHTMLAttributes {
-    'area'?: Object;
-    'onWvSitemapManagerAreaModalCloseEvent'?: (event: CustomEvent) => void;
-    'onWvSitemapManagerAreaSubmittedEvent'?: (event: CustomEvent) => void;
-    'submitResponse'?: Object;
-  }
-
-  interface WvSitemapManagerArea {
-    'area': Object;
-  }
-  interface WvSitemapManagerAreaAttributes extends StencilHTMLAttributes {
-    'area'?: Object;
-    'onWvSitemapManagerAreaDeleteEvent'?: (event: CustomEvent) => void;
-    'onWvSitemapManagerAreaManageEvent'?: (event: CustomEvent) => void;
-    'onWvSitemapManagerNodeDeleteEvent'?: (event: CustomEvent) => void;
-    'onWvSitemapManagerNodeManageEvent'?: (event: CustomEvent) => void;
-  }
-
   interface WvSitemapManager {
     'apiRoot': string;
     'appId': string;
     'initData': string;
   }
-  interface WvSitemapManagerAttributes extends StencilHTMLAttributes {
-    'apiRoot'?: string;
-    'appId'?: string;
-    'initData'?: string;
+  interface WvSitemapManagerArea {
+    'area': Object;
   }
-
   interface WvSitemapNodeModal {
     'apiRoot': string;
     'appId': string;
@@ -53,33 +29,9 @@ export namespace Components {
     'nodePageDict': Object;
     'submitResponse': Object;
   }
-  interface WvSitemapNodeModalAttributes extends StencilHTMLAttributes {
-    'apiRoot'?: string;
-    'appId'?: string;
-    'nodeAuxData'?: Object;
-    'nodeObj'?: Object;
-    'nodePageDict'?: Object;
-    'onWvSitemapManagerNodeAuxDataUpdateEvent'?: (event: CustomEvent) => void;
-    'onWvSitemapManagerNodeModalCloseEvent'?: (event: CustomEvent) => void;
-    'onWvSitemapManagerNodeSubmittedEvent'?: (event: CustomEvent) => void;
-    'submitResponse'?: Object;
-  }
 }
 
 declare global {
-  interface StencilElementInterfaces {
-    'WvSitemapAreaModal': Components.WvSitemapAreaModal;
-    'WvSitemapManagerArea': Components.WvSitemapManagerArea;
-    'WvSitemapManager': Components.WvSitemapManager;
-    'WvSitemapNodeModal': Components.WvSitemapNodeModal;
-  }
-
-  interface StencilIntrinsicElements {
-    'wv-sitemap-area-modal': Components.WvSitemapAreaModalAttributes;
-    'wv-sitemap-manager-area': Components.WvSitemapManagerAreaAttributes;
-    'wv-sitemap-manager': Components.WvSitemapManagerAttributes;
-    'wv-sitemap-node-modal': Components.WvSitemapNodeModalAttributes;
-  }
 
 
   interface HTMLWvSitemapAreaModalElement extends Components.WvSitemapAreaModal, HTMLStencilElement {}
@@ -88,16 +40,16 @@ declare global {
     new (): HTMLWvSitemapAreaModalElement;
   };
 
-  interface HTMLWvSitemapManagerAreaElement extends Components.WvSitemapManagerArea, HTMLStencilElement {}
-  var HTMLWvSitemapManagerAreaElement: {
-    prototype: HTMLWvSitemapManagerAreaElement;
-    new (): HTMLWvSitemapManagerAreaElement;
-  };
-
   interface HTMLWvSitemapManagerElement extends Components.WvSitemapManager, HTMLStencilElement {}
   var HTMLWvSitemapManagerElement: {
     prototype: HTMLWvSitemapManagerElement;
     new (): HTMLWvSitemapManagerElement;
+  };
+
+  interface HTMLWvSitemapManagerAreaElement extends Components.WvSitemapManagerArea, HTMLStencilElement {}
+  var HTMLWvSitemapManagerAreaElement: {
+    prototype: HTMLWvSitemapManagerAreaElement;
+    new (): HTMLWvSitemapManagerAreaElement;
   };
 
   interface HTMLWvSitemapNodeModalElement extends Components.WvSitemapNodeModal, HTMLStencilElement {}
@@ -105,28 +57,60 @@ declare global {
     prototype: HTMLWvSitemapNodeModalElement;
     new (): HTMLWvSitemapNodeModalElement;
   };
-
   interface HTMLElementTagNameMap {
-    'wv-sitemap-area-modal': HTMLWvSitemapAreaModalElement
-    'wv-sitemap-manager-area': HTMLWvSitemapManagerAreaElement
-    'wv-sitemap-manager': HTMLWvSitemapManagerElement
-    'wv-sitemap-node-modal': HTMLWvSitemapNodeModalElement
-  }
-
-  interface ElementTagNameMap {
     'wv-sitemap-area-modal': HTMLWvSitemapAreaModalElement;
-    'wv-sitemap-manager-area': HTMLWvSitemapManagerAreaElement;
     'wv-sitemap-manager': HTMLWvSitemapManagerElement;
+    'wv-sitemap-manager-area': HTMLWvSitemapManagerAreaElement;
     'wv-sitemap-node-modal': HTMLWvSitemapNodeModalElement;
   }
-
-
-  export namespace JSX {
-    export interface Element {}
-    export interface IntrinsicElements extends StencilIntrinsicElements {
-      [tagName: string]: any;
-    }
-  }
-  export interface HTMLAttributes extends StencilHTMLAttributes {}
-
 }
+
+declare namespace LocalJSX {
+  interface WvSitemapAreaModal extends JSXBase.HTMLAttributes<HTMLWvSitemapAreaModalElement> {
+    'area'?: Object;
+    'onWvSitemapManagerAreaModalCloseEvent'?: (event: CustomEvent<any>) => void;
+    'onWvSitemapManagerAreaSubmittedEvent'?: (event: CustomEvent<any>) => void;
+    'submitResponse'?: Object;
+  }
+  interface WvSitemapManager extends JSXBase.HTMLAttributes<HTMLWvSitemapManagerElement> {
+    'apiRoot'?: string;
+    'appId'?: string;
+    'initData'?: string;
+  }
+  interface WvSitemapManagerArea extends JSXBase.HTMLAttributes<HTMLWvSitemapManagerAreaElement> {
+    'area'?: Object;
+    'onWvSitemapManagerAreaDeleteEvent'?: (event: CustomEvent<any>) => void;
+    'onWvSitemapManagerAreaManageEvent'?: (event: CustomEvent<any>) => void;
+    'onWvSitemapManagerNodeDeleteEvent'?: (event: CustomEvent<any>) => void;
+    'onWvSitemapManagerNodeManageEvent'?: (event: CustomEvent<any>) => void;
+  }
+  interface WvSitemapNodeModal extends JSXBase.HTMLAttributes<HTMLWvSitemapNodeModalElement> {
+    'apiRoot'?: string;
+    'appId'?: string;
+    'nodeAuxData'?: Object;
+    'nodeObj'?: Object;
+    'nodePageDict'?: Object;
+    'onWvSitemapManagerNodeAuxDataUpdateEvent'?: (event: CustomEvent<any>) => void;
+    'onWvSitemapManagerNodeModalCloseEvent'?: (event: CustomEvent<any>) => void;
+    'onWvSitemapManagerNodeSubmittedEvent'?: (event: CustomEvent<any>) => void;
+    'submitResponse'?: Object;
+  }
+
+  interface IntrinsicElements {
+    'wv-sitemap-area-modal': WvSitemapAreaModal;
+    'wv-sitemap-manager': WvSitemapManager;
+    'wv-sitemap-manager-area': WvSitemapManagerArea;
+    'wv-sitemap-node-modal': WvSitemapNodeModal;
+  }
+}
+
+export { LocalJSX as JSX };
+
+
+declare module "@stencil/core" {
+  export namespace JSX {
+    interface IntrinsicElements extends LocalJSX.IntrinsicElements {}
+  }
+}
+
+

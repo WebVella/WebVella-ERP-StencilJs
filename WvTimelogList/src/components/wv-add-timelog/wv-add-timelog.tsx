@@ -1,9 +1,10 @@
-import { Component,Prop,State } from '@stencil/core';
+import { Component,Prop,State, h } from '@stencil/core';
+import '@stencil/redux';//fixing undefined error
 import { Store,Action } from '@stencil/redux';
 import axios from 'axios';
 import * as action from '../../store/actions';
 import moment from 'moment';
-
+//import * as actionType from "../../store/action-types";
 
 function SubmitReplyForm(scope){
   scope.isWarningVisible = false;
@@ -22,7 +23,7 @@ function SubmitReplyForm(scope){
   let requestUrl = siteRoot + "/api/v3.0/p/project/pc-timelog-list/create"; 
   let requestBody = new Object();
   requestBody["minutes"] = scope.minutes;
-  requestBody["loggedOn"] = scope.loggedOn;
+  requestBody["loggedOn"] = moment(scope.loggedOn).local().format('YYYY-MM-DDTHH:mm:ss');
   requestBody["body"] = scope.taskBody;
   requestBody["isBillable"] = scope.isBillable;
   requestBody["relatedRecords"] = storeState.relatedRecords;
@@ -32,6 +33,7 @@ function SubmitReplyForm(scope){
       let actionPayload = {
         timelog:response.data.object
       }
+      //dispatch => dispatch({ type: actionType.ADD_TIMELOG, payload:actionPayload})
       scope.addTimelog(actionPayload);
       scope.minutes = null;
       scope.isBillable = true;

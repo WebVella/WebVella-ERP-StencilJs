@@ -1,4 +1,5 @@
-import { Component, Prop,State } from '@stencil/core';
+import { Component, Prop,State, h } from '@stencil/core';
+import '@stencil/redux';//fixing undefined error
 import { Store } from '@stencil/redux';
 import _ from 'lodash';
 
@@ -38,7 +39,7 @@ function GetRootNodes(pageNodes: Array<Object>) : Array<Object>{
             <div class="title">Page Body</div>
             {/* <div class="action">
                 <button type="button" class="btn btn-link btn-sm">
-                    <i class="ti-search"></i>
+                    <i class="fa-search"></i>
                 </button>
             </div>           */}
         </div>,

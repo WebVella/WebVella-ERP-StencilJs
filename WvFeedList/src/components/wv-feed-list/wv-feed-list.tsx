@@ -1,5 +1,6 @@
-import { Component,Prop,State } from '@stencil/core';
+import { Component,Prop,State, h } from '@stencil/core';
 import { configureStore } from '../../store/index';
+import '@stencil/redux';//fixing undefined error
 import { Store } from '@stencil/redux';
 import _ from 'lodash';
 import WvStore from '../../models/WvStore';

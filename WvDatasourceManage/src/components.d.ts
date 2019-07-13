@@ -5,13 +5,10 @@
  */
 
 
-import '@stencil/core';
-
-import '@stencil/redux';
+import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-
   interface WvDatasourceManage {
     'apiRootUrl': string;
     'datasourceId': string;
@@ -20,39 +17,12 @@ export namespace Components {
     'pageDatasourceParams': string;
     'show': boolean;
   }
-  interface WvDatasourceManageAttributes extends StencilHTMLAttributes {
-    'apiRootUrl'?: string;
-    'datasourceId'?: string;
-    'pageDatasourceId'?: string;
-    'pageDatasourceName'?: string;
-    'pageDatasourceParams'?: string;
-    'show'?: boolean;
-  }
-
   interface WvDatasourceParamForm {}
-  interface WvDatasourceParamFormAttributes extends StencilHTMLAttributes {}
-
   interface WvDatasourceStep1 {}
-  interface WvDatasourceStep1Attributes extends StencilHTMLAttributes {}
-
   interface WvDatasourceStep2 {}
-  interface WvDatasourceStep2Attributes extends StencilHTMLAttributes {}
 }
 
 declare global {
-  interface StencilElementInterfaces {
-    'WvDatasourceManage': Components.WvDatasourceManage;
-    'WvDatasourceParamForm': Components.WvDatasourceParamForm;
-    'WvDatasourceStep1': Components.WvDatasourceStep1;
-    'WvDatasourceStep2': Components.WvDatasourceStep2;
-  }
-
-  interface StencilIntrinsicElements {
-    'wv-datasource-manage': Components.WvDatasourceManageAttributes;
-    'wv-datasource-param-form': Components.WvDatasourceParamFormAttributes;
-    'wv-datasource-step1': Components.WvDatasourceStep1Attributes;
-    'wv-datasource-step2': Components.WvDatasourceStep2Attributes;
-  }
 
 
   interface HTMLWvDatasourceManageElement extends Components.WvDatasourceManage, HTMLStencilElement {}
@@ -78,28 +48,42 @@ declare global {
     prototype: HTMLWvDatasourceStep2Element;
     new (): HTMLWvDatasourceStep2Element;
   };
-
   interface HTMLElementTagNameMap {
-    'wv-datasource-manage': HTMLWvDatasourceManageElement
-    'wv-datasource-param-form': HTMLWvDatasourceParamFormElement
-    'wv-datasource-step1': HTMLWvDatasourceStep1Element
-    'wv-datasource-step2': HTMLWvDatasourceStep2Element
-  }
-
-  interface ElementTagNameMap {
     'wv-datasource-manage': HTMLWvDatasourceManageElement;
     'wv-datasource-param-form': HTMLWvDatasourceParamFormElement;
     'wv-datasource-step1': HTMLWvDatasourceStep1Element;
     'wv-datasource-step2': HTMLWvDatasourceStep2Element;
   }
-
-
-  export namespace JSX {
-    export interface Element {}
-    export interface IntrinsicElements extends StencilIntrinsicElements {
-      [tagName: string]: any;
-    }
-  }
-  export interface HTMLAttributes extends StencilHTMLAttributes {}
-
 }
+
+declare namespace LocalJSX {
+  interface WvDatasourceManage extends JSXBase.HTMLAttributes<HTMLWvDatasourceManageElement> {
+    'apiRootUrl'?: string;
+    'datasourceId'?: string;
+    'pageDatasourceId'?: string;
+    'pageDatasourceName'?: string;
+    'pageDatasourceParams'?: string;
+    'show'?: boolean;
+  }
+  interface WvDatasourceParamForm extends JSXBase.HTMLAttributes<HTMLWvDatasourceParamFormElement> {}
+  interface WvDatasourceStep1 extends JSXBase.HTMLAttributes<HTMLWvDatasourceStep1Element> {}
+  interface WvDatasourceStep2 extends JSXBase.HTMLAttributes<HTMLWvDatasourceStep2Element> {}
+
+  interface IntrinsicElements {
+    'wv-datasource-manage': WvDatasourceManage;
+    'wv-datasource-param-form': WvDatasourceParamForm;
+    'wv-datasource-step1': WvDatasourceStep1;
+    'wv-datasource-step2': WvDatasourceStep2;
+  }
+}
+
+export { LocalJSX as JSX };
+
+
+declare module "@stencil/core" {
+  export namespace JSX {
+    interface IntrinsicElements extends LocalJSX.IntrinsicElements {}
+  }
+}
+
+

@@ -1,4 +1,5 @@
-import { Component,Prop,State,Watch } from '@stencil/core';
+import { Component,Prop,State,Watch, h } from '@stencil/core';
+import '@stencil/redux';//fixing undefined error
 import { Store,Action } from '@stencil/redux';
 import * as action from '../../store/actions';
 import _ from "lodash";
@@ -61,7 +62,8 @@ function GetContainerNodes(parentNodeId: string, containerId: string, pageNodes:
                 hoveredContainerId:state.hoveredContainerId,
                 pageNodeChangeIndex:state.pageNodeChangeIndex
             };
-        });           
+        });    
+   
         this.store.mapDispatchToProps(this, {
             addDrakeContainerId:action.addDrakeContainerId,
             hoverContainer:action.hoverContainer,

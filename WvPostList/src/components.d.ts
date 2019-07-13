@@ -5,23 +5,17 @@
  */
 
 
-import '@stencil/core';
-
-import '@stencil/redux';
+import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-
   interface WvAddPost {}
-  interface WvAddPostAttributes extends StencilHTMLAttributes {}
-
   interface WvComment {
     'comment': Object;
   }
-  interface WvCommentAttributes extends StencilHTMLAttributes {
-    'comment'?: Object;
+  interface WvPost {
+    'post': Object;
   }
-
   interface WvPostList {
     'currentUser': string;
     'isDebug': string;
@@ -30,37 +24,9 @@ export namespace Components {
     'relatedRecords': string;
     'siteRootUrl': string;
   }
-  interface WvPostListAttributes extends StencilHTMLAttributes {
-    'currentUser'?: string;
-    'isDebug'?: string;
-    'posts'?: string;
-    'relatedRecordId'?: string;
-    'relatedRecords'?: string;
-    'siteRootUrl'?: string;
-  }
-
-  interface WvPost {
-    'post': Object;
-  }
-  interface WvPostAttributes extends StencilHTMLAttributes {
-    'post'?: Object;
-  }
 }
 
 declare global {
-  interface StencilElementInterfaces {
-    'WvAddPost': Components.WvAddPost;
-    'WvComment': Components.WvComment;
-    'WvPostList': Components.WvPostList;
-    'WvPost': Components.WvPost;
-  }
-
-  interface StencilIntrinsicElements {
-    'wv-add-post': Components.WvAddPostAttributes;
-    'wv-comment': Components.WvCommentAttributes;
-    'wv-post-list': Components.WvPostListAttributes;
-    'wv-post': Components.WvPostAttributes;
-  }
 
 
   interface HTMLWvAddPostElement extends Components.WvAddPost, HTMLStencilElement {}
@@ -75,39 +41,57 @@ declare global {
     new (): HTMLWvCommentElement;
   };
 
-  interface HTMLWvPostListElement extends Components.WvPostList, HTMLStencilElement {}
-  var HTMLWvPostListElement: {
-    prototype: HTMLWvPostListElement;
-    new (): HTMLWvPostListElement;
-  };
-
   interface HTMLWvPostElement extends Components.WvPost, HTMLStencilElement {}
   var HTMLWvPostElement: {
     prototype: HTMLWvPostElement;
     new (): HTMLWvPostElement;
   };
 
+  interface HTMLWvPostListElement extends Components.WvPostList, HTMLStencilElement {}
+  var HTMLWvPostListElement: {
+    prototype: HTMLWvPostListElement;
+    new (): HTMLWvPostListElement;
+  };
   interface HTMLElementTagNameMap {
-    'wv-add-post': HTMLWvAddPostElement
-    'wv-comment': HTMLWvCommentElement
-    'wv-post-list': HTMLWvPostListElement
-    'wv-post': HTMLWvPostElement
-  }
-
-  interface ElementTagNameMap {
     'wv-add-post': HTMLWvAddPostElement;
     'wv-comment': HTMLWvCommentElement;
-    'wv-post-list': HTMLWvPostListElement;
     'wv-post': HTMLWvPostElement;
+    'wv-post-list': HTMLWvPostListElement;
   }
-
-
-  export namespace JSX {
-    export interface Element {}
-    export interface IntrinsicElements extends StencilIntrinsicElements {
-      [tagName: string]: any;
-    }
-  }
-  export interface HTMLAttributes extends StencilHTMLAttributes {}
-
 }
+
+declare namespace LocalJSX {
+  interface WvAddPost extends JSXBase.HTMLAttributes<HTMLWvAddPostElement> {}
+  interface WvComment extends JSXBase.HTMLAttributes<HTMLWvCommentElement> {
+    'comment'?: Object;
+  }
+  interface WvPost extends JSXBase.HTMLAttributes<HTMLWvPostElement> {
+    'post'?: Object;
+  }
+  interface WvPostList extends JSXBase.HTMLAttributes<HTMLWvPostListElement> {
+    'currentUser'?: string;
+    'isDebug'?: string;
+    'posts'?: string;
+    'relatedRecordId'?: string;
+    'relatedRecords'?: string;
+    'siteRootUrl'?: string;
+  }
+
+  interface IntrinsicElements {
+    'wv-add-post': WvAddPost;
+    'wv-comment': WvComment;
+    'wv-post': WvPost;
+    'wv-post-list': WvPostList;
+  }
+}
+
+export { LocalJSX as JSX };
+
+
+declare module "@stencil/core" {
+  export namespace JSX {
+    interface IntrinsicElements extends LocalJSX.IntrinsicElements {}
+  }
+}
+
+

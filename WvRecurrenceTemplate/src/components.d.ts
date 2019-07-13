@@ -5,13 +5,10 @@
  */
 
 
-import '@stencil/core';
-
-
+import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-
   interface WvRecurrenceTemplate {
     'changeTypeOptions': string;
     'endTypeOptions': string;
@@ -20,24 +17,9 @@ export namespace Components {
     'templateDefault': string;
     'typeOptions': string;
   }
-  interface WvRecurrenceTemplateAttributes extends StencilHTMLAttributes {
-    'changeTypeOptions'?: string;
-    'endTypeOptions'?: string;
-    'periodTypeOptions'?: string;
-    'recurrenceTemplate'?: string;
-    'templateDefault'?: string;
-    'typeOptions'?: string;
-  }
 }
 
 declare global {
-  interface StencilElementInterfaces {
-    'WvRecurrenceTemplate': Components.WvRecurrenceTemplate;
-  }
-
-  interface StencilIntrinsicElements {
-    'wv-recurrence-template': Components.WvRecurrenceTemplateAttributes;
-  }
 
 
   interface HTMLWvRecurrenceTemplateElement extends Components.WvRecurrenceTemplate, HTMLStencilElement {}
@@ -45,22 +27,33 @@ declare global {
     prototype: HTMLWvRecurrenceTemplateElement;
     new (): HTMLWvRecurrenceTemplateElement;
   };
-
   interface HTMLElementTagNameMap {
-    'wv-recurrence-template': HTMLWvRecurrenceTemplateElement
-  }
-
-  interface ElementTagNameMap {
     'wv-recurrence-template': HTMLWvRecurrenceTemplateElement;
   }
-
-
-  export namespace JSX {
-    export interface Element {}
-    export interface IntrinsicElements extends StencilIntrinsicElements {
-      [tagName: string]: any;
-    }
-  }
-  export interface HTMLAttributes extends StencilHTMLAttributes {}
-
 }
+
+declare namespace LocalJSX {
+  interface WvRecurrenceTemplate extends JSXBase.HTMLAttributes<HTMLWvRecurrenceTemplateElement> {
+    'changeTypeOptions'?: string;
+    'endTypeOptions'?: string;
+    'periodTypeOptions'?: string;
+    'recurrenceTemplate'?: string;
+    'templateDefault'?: string;
+    'typeOptions'?: string;
+  }
+
+  interface IntrinsicElements {
+    'wv-recurrence-template': WvRecurrenceTemplate;
+  }
+}
+
+export { LocalJSX as JSX };
+
+
+declare module "@stencil/core" {
+  export namespace JSX {
+    interface IntrinsicElements extends LocalJSX.IntrinsicElements {}
+  }
+}
+
+

@@ -1,4 +1,4 @@
-import { Component,Prop, State } from '@stencil/core';
+import { Component,Prop, State, h } from '@stencil/core';
 import RecurrenceTemplate from '../../models/RecurrenceTemplate';
 import SelectOption from '../../models/SelectOption';
 

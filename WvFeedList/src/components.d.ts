@@ -5,47 +5,21 @@
  */
 
 
-import '@stencil/core';
-
-import '@stencil/redux';
+import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-
+  interface WvFeed {
+    'record': Object;
+  }
   interface WvFeedList {
     'isDebug': string;
     'records': string;
   }
-  interface WvFeedListAttributes extends StencilHTMLAttributes {
-    'isDebug'?: string;
-    'records'?: string;
-  }
-
-  interface WvFeed {
-    'record': Object;
-  }
-  interface WvFeedAttributes extends StencilHTMLAttributes {
-    'record'?: Object;
-  }
 }
 
 declare global {
-  interface StencilElementInterfaces {
-    'WvFeedList': Components.WvFeedList;
-    'WvFeed': Components.WvFeed;
-  }
 
-  interface StencilIntrinsicElements {
-    'wv-feed-list': Components.WvFeedListAttributes;
-    'wv-feed': Components.WvFeedAttributes;
-  }
-
-
-  interface HTMLWvFeedListElement extends Components.WvFeedList, HTMLStencilElement {}
-  var HTMLWvFeedListElement: {
-    prototype: HTMLWvFeedListElement;
-    new (): HTMLWvFeedListElement;
-  };
 
   interface HTMLWvFeedElement extends Components.WvFeed, HTMLStencilElement {}
   var HTMLWvFeedElement: {
@@ -53,23 +27,39 @@ declare global {
     new (): HTMLWvFeedElement;
   };
 
+  interface HTMLWvFeedListElement extends Components.WvFeedList, HTMLStencilElement {}
+  var HTMLWvFeedListElement: {
+    prototype: HTMLWvFeedListElement;
+    new (): HTMLWvFeedListElement;
+  };
   interface HTMLElementTagNameMap {
-    'wv-feed-list': HTMLWvFeedListElement
-    'wv-feed': HTMLWvFeedElement
-  }
-
-  interface ElementTagNameMap {
-    'wv-feed-list': HTMLWvFeedListElement;
     'wv-feed': HTMLWvFeedElement;
+    'wv-feed-list': HTMLWvFeedListElement;
   }
-
-
-  export namespace JSX {
-    export interface Element {}
-    export interface IntrinsicElements extends StencilIntrinsicElements {
-      [tagName: string]: any;
-    }
-  }
-  export interface HTMLAttributes extends StencilHTMLAttributes {}
-
 }
+
+declare namespace LocalJSX {
+  interface WvFeed extends JSXBase.HTMLAttributes<HTMLWvFeedElement> {
+    'record'?: Object;
+  }
+  interface WvFeedList extends JSXBase.HTMLAttributes<HTMLWvFeedListElement> {
+    'isDebug'?: string;
+    'records'?: string;
+  }
+
+  interface IntrinsicElements {
+    'wv-feed': WvFeed;
+    'wv-feed-list': WvFeedList;
+  }
+}
+
+export { LocalJSX as JSX };
+
+
+declare module "@stencil/core" {
+  export namespace JSX {
+    interface IntrinsicElements extends LocalJSX.IntrinsicElements {}
+  }
+}
+
+

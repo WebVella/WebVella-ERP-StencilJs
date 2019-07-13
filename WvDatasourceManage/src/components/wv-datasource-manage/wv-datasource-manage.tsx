@@ -1,6 +1,7 @@
-import { Component,Prop } from '@stencil/core';
+import { Component,Prop,h } from '@stencil/core';
 import { configureStore } from '../../store/index';
 import WvDsManageStore from '../../models/WvDsManageStore';
+import '@stencil/redux';//fixing undefined error
 import { Store,Action } from '@stencil/redux';
 import * as action from '../../store/actions';
 

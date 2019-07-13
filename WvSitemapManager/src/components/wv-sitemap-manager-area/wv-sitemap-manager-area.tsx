@@ -1,4 +1,4 @@
-import { Component, Prop, Event, EventEmitter } from '@stencil/core';
+import { Component, Prop, Event, EventEmitter, h } from '@stencil/core';
 
 @Component({
     tag: 'wv-sitemap-manager-area',
@@ -54,7 +54,7 @@ import { Component, Prop, Event, EventEmitter } from '@stencil/core';
         if(this.area["color"]){
             areaColor = this.area["color"];
         }
-        var areaIconClass = "ti-help";
+        var areaIconClass = "far fa-question-circle";
         if(this.area["icon_class"]){
             areaIconClass = this.area["icon_class"];
         }
@@ -64,8 +64,8 @@ import { Component, Prop, Event, EventEmitter } from '@stencil/core';
                     <span class={"icon " + areaIconClass} style={{backgroundColor:areaColor}}></span>
                     <div class="label">({this.area["weight"]}) {this.area["label"]}</div>
                     <div class="btn-group btn-group-sm action">
-                        <button type="button" class="btn btn-link" onClick={(e) => this.deleteArea(e)}><span class="ti-trash go-red"></span> delete</button>
-                        <button type="button" class="btn btn-link" onClick={()=> this.manageArea()}><span class="ti-settings"></span> config</button>
+                        <button type="button" class="btn btn-link" onClick={(e) => this.deleteArea(e)}><span class="fa fa-trash-alt go-red"></span> delete</button>
+                        <button type="button" class="btn btn-link" onClick={()=> this.manageArea()}><span class="fa fa-cog"></span> config</button>
                     </div>
                  </div>
                  <div class={"area-body " + (this.area["nodes"].length > 0 ? "" : "d-none")}>
@@ -123,8 +123,8 @@ import { Component, Prop, Event, EventEmitter } from '@stencil/core';
                                     </td>     
                                     <td>
                                         <div class="btn-group btn-group-sm action">
-                                            <button type="button" class="btn btn-link" onClick={(e) => areaCmpt.deleteNode(e,node)}><span class="ti-trash go-red"></span> delete</button>
-                                            <button type="button" class="btn btn-link" onClick={() => areaCmpt.manageNode(node)}><span class="ti-settings"></span> config</button>
+                                            <button type="button" class="btn btn-link" onClick={(e) => areaCmpt.deleteNode(e,node)}><span class="fa fa-trash-alt go-red"></span> delete</button>
+                                            <button type="button" class="btn btn-link" onClick={() => areaCmpt.manageNode(node)}><span class="fa fa-cog"></span> config</button>
                                         </div>                                        
                                     </td>                   
                                 </tr>

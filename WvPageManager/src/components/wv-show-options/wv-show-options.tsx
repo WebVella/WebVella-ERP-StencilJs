@@ -1,4 +1,5 @@
 import { Component,Prop,State,Watch } from '@stencil/core';
+import '@stencil/redux';//fixing undefined error
 import { Store } from '@stencil/redux';
 import WvPbStore from '../../models/WvPbStore';
 

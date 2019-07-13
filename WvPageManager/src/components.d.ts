@@ -5,116 +5,41 @@
  */
 
 
-import '@stencil/core';
-
-import '@stencil/redux';
+import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-
   interface WvCreateModal {}
-  interface WvCreateModalAttributes extends StencilHTMLAttributes {}
-
   interface WvHelpModal {}
-  interface WvHelpModalAttributes extends StencilHTMLAttributes {}
-
   interface WvLoadingPane {}
-  interface WvLoadingPaneAttributes extends StencilHTMLAttributes {}
-
   interface WvOptionsModal {}
-  interface WvOptionsModalAttributes extends StencilHTMLAttributes {}
-
   interface WvPbInspector {}
-  interface WvPbInspectorAttributes extends StencilHTMLAttributes {}
-
   interface WvPbManager {
-    'libraryJson': string;
     'pageId': string;
-    'pageNodesJson': string;
     'recordId': string;
     'siteRootUrl': string;
   }
-  interface WvPbManagerAttributes extends StencilHTMLAttributes {
-    'libraryJson'?: string;
-    'pageId'?: string;
-    'pageNodesJson'?: string;
-    'recordId'?: string;
-    'siteRootUrl'?: string;
+  interface WvPbNode {
+    'nodeId': string;
   }
-
   interface WvPbNodeContainer {
     'containerId': string;
     'parentNodeId': string;
   }
-  interface WvPbNodeContainerAttributes extends StencilHTMLAttributes {
-    'containerId'?: string;
-    'parentNodeId'?: string;
-  }
-
-  interface WvPbNode {
-    'nodeId': string;
-  }
-  interface WvPbNodeAttributes extends StencilHTMLAttributes {
-    'nodeId'?: string;
-  }
-
+  interface WvPbTree {}
   interface WvPbTreeNode {
     'level': number;
     'node': Object;
   }
-  interface WvPbTreeNodeAttributes extends StencilHTMLAttributes {
-    'level'?: number;
-    'node'?: Object;
-  }
-
-  interface WvPbTree {}
-  interface WvPbTreeAttributes extends StencilHTMLAttributes {}
-
   interface WvShowHelp {
     'nodeId': string;
   }
-  interface WvShowHelpAttributes extends StencilHTMLAttributes {
-    'nodeId'?: string;
-  }
-
   interface WvShowOptions {
     'nodeId': string;
-  }
-  interface WvShowOptionsAttributes extends StencilHTMLAttributes {
-    'nodeId'?: string;
   }
 }
 
 declare global {
-  interface StencilElementInterfaces {
-    'WvCreateModal': Components.WvCreateModal;
-    'WvHelpModal': Components.WvHelpModal;
-    'WvLoadingPane': Components.WvLoadingPane;
-    'WvOptionsModal': Components.WvOptionsModal;
-    'WvPbInspector': Components.WvPbInspector;
-    'WvPbManager': Components.WvPbManager;
-    'WvPbNodeContainer': Components.WvPbNodeContainer;
-    'WvPbNode': Components.WvPbNode;
-    'WvPbTreeNode': Components.WvPbTreeNode;
-    'WvPbTree': Components.WvPbTree;
-    'WvShowHelp': Components.WvShowHelp;
-    'WvShowOptions': Components.WvShowOptions;
-  }
-
-  interface StencilIntrinsicElements {
-    'wv-create-modal': Components.WvCreateModalAttributes;
-    'wv-help-modal': Components.WvHelpModalAttributes;
-    'wv-loading-pane': Components.WvLoadingPaneAttributes;
-    'wv-options-modal': Components.WvOptionsModalAttributes;
-    'wv-pb-inspector': Components.WvPbInspectorAttributes;
-    'wv-pb-manager': Components.WvPbManagerAttributes;
-    'wv-pb-node-container': Components.WvPbNodeContainerAttributes;
-    'wv-pb-node': Components.WvPbNodeAttributes;
-    'wv-pb-tree-node': Components.WvPbTreeNodeAttributes;
-    'wv-pb-tree': Components.WvPbTreeAttributes;
-    'wv-show-help': Components.WvShowHelpAttributes;
-    'wv-show-options': Components.WvShowOptionsAttributes;
-  }
 
 
   interface HTMLWvCreateModalElement extends Components.WvCreateModal, HTMLStencilElement {}
@@ -153,28 +78,28 @@ declare global {
     new (): HTMLWvPbManagerElement;
   };
 
-  interface HTMLWvPbNodeContainerElement extends Components.WvPbNodeContainer, HTMLStencilElement {}
-  var HTMLWvPbNodeContainerElement: {
-    prototype: HTMLWvPbNodeContainerElement;
-    new (): HTMLWvPbNodeContainerElement;
-  };
-
   interface HTMLWvPbNodeElement extends Components.WvPbNode, HTMLStencilElement {}
   var HTMLWvPbNodeElement: {
     prototype: HTMLWvPbNodeElement;
     new (): HTMLWvPbNodeElement;
   };
 
-  interface HTMLWvPbTreeNodeElement extends Components.WvPbTreeNode, HTMLStencilElement {}
-  var HTMLWvPbTreeNodeElement: {
-    prototype: HTMLWvPbTreeNodeElement;
-    new (): HTMLWvPbTreeNodeElement;
+  interface HTMLWvPbNodeContainerElement extends Components.WvPbNodeContainer, HTMLStencilElement {}
+  var HTMLWvPbNodeContainerElement: {
+    prototype: HTMLWvPbNodeContainerElement;
+    new (): HTMLWvPbNodeContainerElement;
   };
 
   interface HTMLWvPbTreeElement extends Components.WvPbTree, HTMLStencilElement {}
   var HTMLWvPbTreeElement: {
     prototype: HTMLWvPbTreeElement;
     new (): HTMLWvPbTreeElement;
+  };
+
+  interface HTMLWvPbTreeNodeElement extends Components.WvPbTreeNode, HTMLStencilElement {}
+  var HTMLWvPbTreeNodeElement: {
+    prototype: HTMLWvPbTreeNodeElement;
+    new (): HTMLWvPbTreeNodeElement;
   };
 
   interface HTMLWvShowHelpElement extends Components.WvShowHelp, HTMLStencilElement {}
@@ -188,44 +113,75 @@ declare global {
     prototype: HTMLWvShowOptionsElement;
     new (): HTMLWvShowOptionsElement;
   };
-
   interface HTMLElementTagNameMap {
-    'wv-create-modal': HTMLWvCreateModalElement
-    'wv-help-modal': HTMLWvHelpModalElement
-    'wv-loading-pane': HTMLWvLoadingPaneElement
-    'wv-options-modal': HTMLWvOptionsModalElement
-    'wv-pb-inspector': HTMLWvPbInspectorElement
-    'wv-pb-manager': HTMLWvPbManagerElement
-    'wv-pb-node-container': HTMLWvPbNodeContainerElement
-    'wv-pb-node': HTMLWvPbNodeElement
-    'wv-pb-tree-node': HTMLWvPbTreeNodeElement
-    'wv-pb-tree': HTMLWvPbTreeElement
-    'wv-show-help': HTMLWvShowHelpElement
-    'wv-show-options': HTMLWvShowOptionsElement
-  }
-
-  interface ElementTagNameMap {
     'wv-create-modal': HTMLWvCreateModalElement;
     'wv-help-modal': HTMLWvHelpModalElement;
     'wv-loading-pane': HTMLWvLoadingPaneElement;
     'wv-options-modal': HTMLWvOptionsModalElement;
     'wv-pb-inspector': HTMLWvPbInspectorElement;
     'wv-pb-manager': HTMLWvPbManagerElement;
-    'wv-pb-node-container': HTMLWvPbNodeContainerElement;
     'wv-pb-node': HTMLWvPbNodeElement;
-    'wv-pb-tree-node': HTMLWvPbTreeNodeElement;
+    'wv-pb-node-container': HTMLWvPbNodeContainerElement;
     'wv-pb-tree': HTMLWvPbTreeElement;
+    'wv-pb-tree-node': HTMLWvPbTreeNodeElement;
     'wv-show-help': HTMLWvShowHelpElement;
     'wv-show-options': HTMLWvShowOptionsElement;
   }
-
-
-  export namespace JSX {
-    export interface Element {}
-    export interface IntrinsicElements extends StencilIntrinsicElements {
-      [tagName: string]: any;
-    }
-  }
-  export interface HTMLAttributes extends StencilHTMLAttributes {}
-
 }
+
+declare namespace LocalJSX {
+  interface WvCreateModal extends JSXBase.HTMLAttributes<HTMLWvCreateModalElement> {}
+  interface WvHelpModal extends JSXBase.HTMLAttributes<HTMLWvHelpModalElement> {}
+  interface WvLoadingPane extends JSXBase.HTMLAttributes<HTMLWvLoadingPaneElement> {}
+  interface WvOptionsModal extends JSXBase.HTMLAttributes<HTMLWvOptionsModalElement> {}
+  interface WvPbInspector extends JSXBase.HTMLAttributes<HTMLWvPbInspectorElement> {}
+  interface WvPbManager extends JSXBase.HTMLAttributes<HTMLWvPbManagerElement> {
+    'pageId'?: string;
+    'recordId'?: string;
+    'siteRootUrl'?: string;
+  }
+  interface WvPbNode extends JSXBase.HTMLAttributes<HTMLWvPbNodeElement> {
+    'nodeId'?: string;
+  }
+  interface WvPbNodeContainer extends JSXBase.HTMLAttributes<HTMLWvPbNodeContainerElement> {
+    'containerId'?: string;
+    'parentNodeId'?: string;
+  }
+  interface WvPbTree extends JSXBase.HTMLAttributes<HTMLWvPbTreeElement> {}
+  interface WvPbTreeNode extends JSXBase.HTMLAttributes<HTMLWvPbTreeNodeElement> {
+    'level'?: number;
+    'node'?: Object;
+  }
+  interface WvShowHelp extends JSXBase.HTMLAttributes<HTMLWvShowHelpElement> {
+    'nodeId'?: string;
+  }
+  interface WvShowOptions extends JSXBase.HTMLAttributes<HTMLWvShowOptionsElement> {
+    'nodeId'?: string;
+  }
+
+  interface IntrinsicElements {
+    'wv-create-modal': WvCreateModal;
+    'wv-help-modal': WvHelpModal;
+    'wv-loading-pane': WvLoadingPane;
+    'wv-options-modal': WvOptionsModal;
+    'wv-pb-inspector': WvPbInspector;
+    'wv-pb-manager': WvPbManager;
+    'wv-pb-node': WvPbNode;
+    'wv-pb-node-container': WvPbNodeContainer;
+    'wv-pb-tree': WvPbTree;
+    'wv-pb-tree-node': WvPbTreeNode;
+    'wv-show-help': WvShowHelp;
+    'wv-show-options': WvShowOptions;
+  }
+}
+
+export { LocalJSX as JSX };
+
+
+declare module "@stencil/core" {
+  export namespace JSX {
+    interface IntrinsicElements extends LocalJSX.IntrinsicElements {}
+  }
+}
+
+

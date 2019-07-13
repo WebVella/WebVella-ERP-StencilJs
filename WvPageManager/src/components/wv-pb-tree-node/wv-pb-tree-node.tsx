@@ -1,4 +1,5 @@
-import { Component, Prop,State } from '@stencil/core';
+import { Component, Prop,State, h } from '@stencil/core';
+import '@stencil/redux';//fixing undefined error
 import { Store,Action } from '@stencil/redux';
 import * as action from '../../store/actions';
 import _ from 'lodash';
@@ -79,7 +80,7 @@ function GetMeta(scope){
         let scope = this;
         let componentMeta = GetMeta(scope);
         let childNodes = GetChildNodes(scope);
-        let iconClass = "ti-file";
+        let iconClass = "fa-file";
         if(componentMeta["icon_class"]){
             iconClass = componentMeta["icon_class"];
         }

@@ -5,16 +5,14 @@
  */
 
 
-import '@stencil/core';
-
-import '@stencil/redux';
+import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-
   interface WvAddTimelog {}
-  interface WvAddTimelogAttributes extends StencilHTMLAttributes {}
-
+  interface WvTimelog {
+    'post': Object;
+  }
   interface WvTimelogList {
     'currentUser': string;
     'isBillable': boolean;
@@ -23,35 +21,9 @@ export namespace Components {
     'relatedRecords': string;
     'siteRootUrl': string;
   }
-  interface WvTimelogListAttributes extends StencilHTMLAttributes {
-    'currentUser'?: string;
-    'isBillable'?: boolean;
-    'isDebug'?: string;
-    'records'?: string;
-    'relatedRecords'?: string;
-    'siteRootUrl'?: string;
-  }
-
-  interface WvTimelog {
-    'post': Object;
-  }
-  interface WvTimelogAttributes extends StencilHTMLAttributes {
-    'post'?: Object;
-  }
 }
 
 declare global {
-  interface StencilElementInterfaces {
-    'WvAddTimelog': Components.WvAddTimelog;
-    'WvTimelogList': Components.WvTimelogList;
-    'WvTimelog': Components.WvTimelog;
-  }
-
-  interface StencilIntrinsicElements {
-    'wv-add-timelog': Components.WvAddTimelogAttributes;
-    'wv-timelog-list': Components.WvTimelogListAttributes;
-    'wv-timelog': Components.WvTimelogAttributes;
-  }
 
 
   interface HTMLWvAddTimelogElement extends Components.WvAddTimelog, HTMLStencilElement {}
@@ -60,37 +32,52 @@ declare global {
     new (): HTMLWvAddTimelogElement;
   };
 
-  interface HTMLWvTimelogListElement extends Components.WvTimelogList, HTMLStencilElement {}
-  var HTMLWvTimelogListElement: {
-    prototype: HTMLWvTimelogListElement;
-    new (): HTMLWvTimelogListElement;
-  };
-
   interface HTMLWvTimelogElement extends Components.WvTimelog, HTMLStencilElement {}
   var HTMLWvTimelogElement: {
     prototype: HTMLWvTimelogElement;
     new (): HTMLWvTimelogElement;
   };
 
+  interface HTMLWvTimelogListElement extends Components.WvTimelogList, HTMLStencilElement {}
+  var HTMLWvTimelogListElement: {
+    prototype: HTMLWvTimelogListElement;
+    new (): HTMLWvTimelogListElement;
+  };
   interface HTMLElementTagNameMap {
-    'wv-add-timelog': HTMLWvAddTimelogElement
-    'wv-timelog-list': HTMLWvTimelogListElement
-    'wv-timelog': HTMLWvTimelogElement
-  }
-
-  interface ElementTagNameMap {
     'wv-add-timelog': HTMLWvAddTimelogElement;
-    'wv-timelog-list': HTMLWvTimelogListElement;
     'wv-timelog': HTMLWvTimelogElement;
+    'wv-timelog-list': HTMLWvTimelogListElement;
   }
-
-
-  export namespace JSX {
-    export interface Element {}
-    export interface IntrinsicElements extends StencilIntrinsicElements {
-      [tagName: string]: any;
-    }
-  }
-  export interface HTMLAttributes extends StencilHTMLAttributes {}
-
 }
+
+declare namespace LocalJSX {
+  interface WvAddTimelog extends JSXBase.HTMLAttributes<HTMLWvAddTimelogElement> {}
+  interface WvTimelog extends JSXBase.HTMLAttributes<HTMLWvTimelogElement> {
+    'post'?: Object;
+  }
+  interface WvTimelogList extends JSXBase.HTMLAttributes<HTMLWvTimelogListElement> {
+    'currentUser'?: string;
+    'isBillable'?: boolean;
+    'isDebug'?: string;
+    'records'?: string;
+    'relatedRecords'?: string;
+    'siteRootUrl'?: string;
+  }
+
+  interface IntrinsicElements {
+    'wv-add-timelog': WvAddTimelog;
+    'wv-timelog': WvTimelog;
+    'wv-timelog-list': WvTimelogList;
+  }
+}
+
+export { LocalJSX as JSX };
+
+
+declare module "@stencil/core" {
+  export namespace JSX {
+    interface IntrinsicElements extends LocalJSX.IntrinsicElements {}
+  }
+}
+
+

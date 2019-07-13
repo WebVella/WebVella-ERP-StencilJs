@@ -1,4 +1,5 @@
-import { Component,Prop,State } from '@stencil/core';
+import { Component,Prop,State, h } from '@stencil/core';
+import '@stencil/redux';//fixing undefined error
 import { Store,Action } from '@stencil/redux';
 import * as action from '../../store/actions';
 import WvPbStore from '../../models/WvPbStore';
@@ -135,6 +136,7 @@ function RecalculateComponentList(scope){
                isCreateModalVisible:state.isCreateModalVisible,
             };
         });           
+        
         scope.store.mapDispatchToProps(scope, {
             setNodeCreation:action.setNodeCreation,
             addNode:action.addNode,
@@ -250,7 +252,7 @@ function RecalculateComponentList(scope){
 
                                   if(compIndex < scope.componentList.length && index%4 === 0){
                                     let component = scope.componentList[compIndex];
-                                    let iconClass = "ti-file";
+                                    let iconClass = "fa fa-file";
                                     if(component["icon_class"]){
                                         iconClass = component["icon_class"];
                                     }                    
