@@ -21,8 +21,8 @@
 
 ### Depends on
 
-- [wv-post](..\wv-post)
-- [wv-add-post](..\wv-add-post)
+- [wv-post](../wv-post)
+- [wv-add-post](../wv-add-post)
 
 ### Graph
 ```mermaid

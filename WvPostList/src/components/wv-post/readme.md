@@ -16,11 +16,11 @@
 
 ### Used by
 
- - [wv-post-list](..\wv-post-list)
+ - [wv-post-list](../wv-post-list)
 
 ### Depends on
 
-- [wv-comment](..\wv-comment)
+- [wv-comment](../wv-comment)
 
 ### Graph
 ```mermaid

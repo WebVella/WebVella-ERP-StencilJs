@@ -17,7 +17,7 @@
 
 ### Depends on
 
-- [wv-feed](..\wv-feed)
+- [wv-feed](../wv-feed)
 
 ### Graph
 ```mermaid

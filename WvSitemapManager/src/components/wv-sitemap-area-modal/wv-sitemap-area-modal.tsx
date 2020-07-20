@@ -8,30 +8,14 @@ function InitIconSelect(scope){
     scope.modalArea["icon_class"] = event.target.value;
  });   
 
-  (window as any).$(selectId).select2({
-  ajax: {
-    url: '/api/v3.0/p/core/select/font-awesome-icons',
-    data: function (params) {
-      var query = {
-        search: params.term,
-        page: params.page || 1
-      };
-      return query;
-    },
-    dataType: 'json',
-    processResults: function (data) {
-      // Tranforms the top-level key of the response object from 'items' to 'results'
-      var results = [];
-      if(data.object.results){
-        _.forEach(data.object.results,function(rec){
-          results.push({id:rec.class,text:rec.class,name:rec.name});
-        });
-      }
+ var wvIconOptions = [];
+ _.forEach((window as any).WvFontAwesomeIcons,function(rec){
+   wvIconOptions.push({id:rec.class,text:rec.class,name:rec.name});
+ }); 
 
-      data.object.results = results;
-      return data.object;
-    }
-  },
+  (window as any).$(selectId).select2({
+  data:wvIconOptions,
+  theme: 'bootstrap4',
   //language: "bg",
   placeholder: 'not-selected',
   allowClear: true,
@@ -131,13 +115,13 @@ function InitIconSelect(scope){
                       <div class={"alert alert-danger " + (this.submitResponse["success"] ? "d-none" : "")}>{this.submitResponse["message"]}</div>
                       <div class="row">
                         <div class="col col-sm-6">
-                          <div class="form-group erp-field">
+                          <div class="form-group wv-field">
                             <label class="control-label">Name</label>
                             <input class="form-control" name="name" value={this.modalArea["name"]} onInput={(event) => this.handleChange(event)}/>
                           </div>
                         </div>
                         <div class="col col-sm-6">
-                          <div class="form-group erp-field">
+                          <div class="form-group wv-field">
                             <label class="control-label">Label</label>
                             <input class="form-control" name="label" value={this.modalArea["label"]} onInput={(event) => this.handleChange(event)}/>
                           </div>
@@ -145,7 +129,7 @@ function InitIconSelect(scope){
                       </div>
                       <div class="row">
                         <div class="col col-sm-12">
-                          <div class="form-group erp-field">
+                          <div class="form-group wv-field">
                             <label class="control-label">Description</label>
                             <textarea class="form-control" style={{height:"60px"}} name="description" onInput={(event) => this.handleChange(event)}>{this.modalArea["description"]}</textarea>
                           </div>
@@ -153,13 +137,13 @@ function InitIconSelect(scope){
                       </div>         
                       <div class="row">
                         <div class="col col-sm-6">
-                          <div class="form-group erp-field">
+                          <div class="form-group wv-field">
                             <label class="control-label">Weight</label>
                             <input type="number" step={1} min={1} class="form-control" name="weight" value={this.modalArea["weight"]} onInput={(event) => this.handleChange(event)}/>
                           </div>
                         </div>
                         <div class="col col-sm-6">
-                          <div class="form-group erp-field">
+                          <div class="form-group wv-field">
                             <label class="control-label">Group names</label>
                               <div class="form-control-plaintext">
                                 <div class="form-check">
@@ -171,13 +155,13 @@ function InitIconSelect(scope){
                       </div>        
                       <div class="row">
                         <div class="col col-sm-6">
-                          <div class="form-group erp-field">
+                          <div class="form-group wv-field">
                             <label class="control-label">Color</label>
                             <input class="form-control" name="color" value={this.modalArea["color"]} onInput={(event) => this.handleChange(event)}/>
                           </div>
                         </div>
                         <div class="col col-sm-6">
-                          <div class="form-group erp-field">
+                          <div class="form-group wv-field form">
                             <label class="control-label">Icon Class</label>
                             <select id="modal-area-icon-class-select" class="form-control" name="icon_class" onChange={(event) => this.handleChange(event)}>
                                   {

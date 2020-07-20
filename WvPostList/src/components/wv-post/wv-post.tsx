@@ -13,7 +13,7 @@ function RenderPostFooter(props){
   if(!scope.post["nodes"]){
     scope.post["nodes"] = new Array<Object>();
   }
-  let currentUserImagePath = "/assets/avatar.png";
+  let currentUserImagePath = "/_content/WebVella.Erp.Web/assets/avatar.png";
   let currentUserName = "anonymous";
   let currentUser = storeState.currentUser;
   if(currentUser){
@@ -226,7 +226,7 @@ export class WvPost {
   render() {
     let scope = this;
     let storeState = scope.store.getState();
-    let userImagePath = "/assets/avatar.png";
+    let userImagePath = "/_content/WebVella.Erp.Web/assets/avatar.png";
     let userName = "system";
     let hrTime = moment(scope.post["created_on"]).fromNow();
     let timeString = moment(scope.post["created_on"]).format('YYYY MM DD HH:mm'); 

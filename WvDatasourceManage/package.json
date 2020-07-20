@@ -20,14 +20,14 @@
     "test.watch": "stencil test --spec --e2e --watchAll"
   },
   "dependencies": {
-    "axios": "0.19.0",
-    "lodash": "4.17.14",
-    "redux": "4.0.4",
+    "axios": "0.19.2",
+    "lodash": "4.17.19",
+    "redux": "4.0.5",
     "redux-thunk": "2.3.0",
-    "@stencil/redux": "0.1.1"
+    "@stencil/redux": "0.1.2"
   },
   "devDependencies": {
-    "@stencil/core": "1.1.6"
+    "@stencil/core": "1.16.4"
   },
   "license": "MIT"
 }

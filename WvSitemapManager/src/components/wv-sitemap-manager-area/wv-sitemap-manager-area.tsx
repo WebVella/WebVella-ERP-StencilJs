@@ -1,5 +1,5 @@
 import { Component, Prop, Event, EventEmitter, h } from '@stencil/core';
-
+import _ from "lodash";
 @Component({
     tag: 'wv-sitemap-manager-area',
     
@@ -27,7 +27,8 @@ import { Component, Prop, Event, EventEmitter, h } from '@stencil/core';
     createNode(){
         var submitObj = {
             node: null,
-            areaId:this.area["id"]
+            areaId:this.area["id"],
+            area:this.area
         }
         this.wvSitemapManagerNodeManageEvent.emit(submitObj);
     }
@@ -35,7 +36,8 @@ import { Component, Prop, Event, EventEmitter, h } from '@stencil/core';
     manageNode(node){
         var submitObj = {
             node: node,
-            areaId:this.area["id"]
+            areaId:this.area["id"],
+            area:this.area
         }        
         this.wvSitemapManagerNodeManageEvent.emit(submitObj);
     }
@@ -49,6 +51,7 @@ import { Component, Prop, Event, EventEmitter, h } from '@stencil/core';
     }
 
       render() {
+        let scope = this;
         var areaCmpt = this;
         var areaColor = "#999";
         if(this.area["color"]){
@@ -78,13 +81,21 @@ import { Component, Prop, Event, EventEmitter, h } from '@stencil/core';
                                 <th style={{width:"200px"}}>name</th>
                                 <th style={{width:"auto"}}>label</th>
                                 <th style={{width:"200px"}}>group</th>
+                                <th style={{width:"200px"}}>parent</th>
                                 <th style={{width:"100px"}}>type</th>
                                 <th style={{width:"160px"}}>action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {this.area["nodes"].map(function(node) { 
-                                var typeString = "";                                
+                                var typeString = "";          
+                                let parentLabel = "";      
+                                if(node["parent_id"]){
+                                    let parentIndex = _.findIndex(scope.area["nodes"],(o) => o["id"] === node["parent_id"]);
+                                    if(parentIndex > -1){
+                                        parentLabel = scope.area["nodes"][parentIndex]["label"];
+                                    }
+                                }
                                 switch(node["type"]){
                                     case 1:
                                         typeString = "entity list";   
@@ -117,7 +128,10 @@ import { Component, Prop, Event, EventEmitter, h } from '@stencil/core';
                                     </td>            
                                     <td>
                                         {node["group_name"]}
-                                    </td>                                      
+                                    </td>                
+                                    <td>
+                                        {parentLabel}
+                                    </td>                                                              
                                     <td>
                                         {typeString}
                                     </td>     

@@ -16,7 +16,7 @@
 
 ### Used by
 
- - [wv-post](..\wv-post)
+ - [wv-post](../wv-post)
 
 ### Graph
 ```mermaid

@@ -74,7 +74,7 @@ export class WvPost {
   render() {
     let scope = this;
     let storeState = scope.store.getState();
-    let userImagePath = "/assets/avatar.png";
+    let userImagePath = "/webvella-erp-web/assets/avatar.png";
     let userName = "system";
     let hrTime = moment(scope.post["created_on"]).fromNow();
     let timeString = moment(scope.post["created_on"]).format('DD MMM YYYY HH:mm'); 

@@ -18,9 +18,9 @@
 
 ### Depends on
 
-- [wv-sitemap-manager-area](..\wv-sitemap-manager-area)
-- [wv-sitemap-area-modal](..\wv-sitemap-area-modal)
-- [wv-sitemap-node-modal](..\wv-sitemap-node-modal)
+- [wv-sitemap-manager-area](../wv-sitemap-manager-area)
+- [wv-sitemap-area-modal](../wv-sitemap-area-modal)
+- [wv-sitemap-node-modal](../wv-sitemap-node-modal)
 
 ### Graph
 ```mermaid

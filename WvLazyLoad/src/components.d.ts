@@ -34,7 +34,7 @@ declare global {
 }
 
 declare namespace LocalJSX {
-  interface WvLazyload extends JSXBase.HTMLAttributes<HTMLWvLazyloadElement> {
+  interface WvLazyload {
     'componentName'?: string;
     'entityId'?: string;
     'nodeId'?: string;
@@ -54,7 +54,9 @@ export { LocalJSX as JSX };
 
 declare module "@stencil/core" {
   export namespace JSX {
-    interface IntrinsicElements extends LocalJSX.IntrinsicElements {}
+    interface IntrinsicElements {
+      'wv-lazyload': LocalJSX.WvLazyload & JSXBase.HTMLAttributes<HTMLWvLazyloadElement>;
+    }
   }
 }
 

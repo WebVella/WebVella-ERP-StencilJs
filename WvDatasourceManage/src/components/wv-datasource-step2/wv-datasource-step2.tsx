@@ -74,7 +74,7 @@ export class WvDatasourceStep2 {
           </div>
           <input type="hidden" name="page_datasource_id" value={pageDatasourceId}/>
           <input type="hidden" name="datasource_id" value={datasource["id"]}/>
-          <div class="form-group erp-field text">
+          <div class="form-group wv-field text">
               <label class="control-label label-stacked">Page data property name:</label>     
               <input type="text" name="page_datasource_name" value={pageDatasourceName} class="form-control form-control-sm"/>
           </div>          

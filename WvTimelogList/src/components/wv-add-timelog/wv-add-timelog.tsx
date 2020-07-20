@@ -159,7 +159,7 @@ export class WvAddNew {
     let scope = this;
     let storeState = scope.store.getState();
 
-      let currentUserImagePath = "/assets/avatar.png";
+      let currentUserImagePath = "/_content/WebVella.Erp.Web/assets/avatar.png";
       let currentUserName = "anonymous";
       let currentUser = storeState.currentUser;
       if(currentUser){
@@ -218,7 +218,7 @@ export class WvAddNew {
                       </div>
 
                   </div>
-                  <div class="form-group erp-field">
+                  <div class="form-group wv-field">
                     <textarea class="form-control" id="wv-timelog-body" onChange={(e) => scope.bodyChange(e)}>{scope.taskBody}</textarea>
                   </div>
                   <div class={"alert alert-danger " + (scope.isWarningVisible ? "" : "d-none")}>Minutes are required or need to be more than 0</div>

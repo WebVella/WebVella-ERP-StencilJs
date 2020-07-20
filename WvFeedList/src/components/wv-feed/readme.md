@@ -16,7 +16,7 @@
 
 ### Used by
 
- - [wv-feed-list](..\wv-feed-list)
+ - [wv-feed-list](../wv-feed-list)
 
 ### Graph
 ```mermaid

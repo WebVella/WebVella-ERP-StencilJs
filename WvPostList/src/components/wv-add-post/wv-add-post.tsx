@@ -163,7 +163,7 @@ export class WvAddNew {
     let storeState = scope.store.getState();
 
 
-    let currentUserImagePath = "/assets/avatar.png";
+    let currentUserImagePath = "/_content/WebVella.Erp.Web/assets/avatar.png";
     let currentUserName = "anonymous";
     let currentUser = storeState.currentUser;
     if(currentUser){

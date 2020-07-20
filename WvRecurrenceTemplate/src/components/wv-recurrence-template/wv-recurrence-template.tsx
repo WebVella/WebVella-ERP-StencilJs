@@ -82,7 +82,7 @@ export class WvDatasourceManage {
         <div>
           <input type="hidden" value={scope.hiddenValue} name="recurrence_template"/>
 
-          <div class="form-group erp-field label-horizontal row no-gutters form">
+          <div class="form-group wv-field label-horizontal row no-gutters form">
             <label class="col-12 col-sm-auto col-form-label label-horizontal pr-0 pr-sm-2">Repeat:</label>
             <div class="col">
               <select class="form-control form-control-sm" onChange={(e)=> scope.valueChangeHandler(e,"type","int")}>
@@ -99,7 +99,7 @@ export class WvDatasourceManage {
 
           <div class={"mt-3 " + (scope.recurrence.type === 7 ? "" : "d-none" )}>
                 <hr class="divider mt-2 mb-2"/>
-                  <div class="form-group erp-field label-horizontal row no-gutters form">
+                  <div class="form-group wv-field label-horizontal row no-gutters form">
                     <label class="col-12 col-sm-auto col-form-label label-horizontal pr-0 pr-sm-2">Repeat every:</label>
                     <div class="col">
                       <div class="input-group">
@@ -118,7 +118,7 @@ export class WvDatasourceManage {
                     </div>
                   </div>                
 
-                  <div class={"form-group erp-field label-horizontal row no-gutters form mt-3 " + (scope.recurrence.repeat_period_type === 4 ? "" : "d-none")}>
+                  <div class={"form-group wv-field label-horizontal row no-gutters form mt-3 " + (scope.recurrence.repeat_period_type === 4 ? "" : "d-none")}>
                     <label class="col-12 col-sm-auto col-form-label label-horizontal pr-0 pr-sm-2"></label>
                     <div class="col">
                       <div class="form-check form-check-inline">
@@ -151,7 +151,7 @@ export class WvDatasourceManage {
                       </div>                                                                                                                                      
                     </div>                  
                   </div>                  
-                  <div class={"form-group erp-field label-horizontal row no-gutters form mt-3 " + (scope.recurrence.repeat_period_type === 5 ? "" : "d-none")}>
+                  <div class={"form-group wv-field label-horizontal row no-gutters form mt-3 " + (scope.recurrence.repeat_period_type === 5 ? "" : "d-none")}>
                     <label class="col-12 col-sm-auto col-form-label label-horizontal pr-0 pr-sm-2"></label>
                     <div class="col">
                       <div class="form-check form-check-inline">
@@ -170,7 +170,7 @@ export class WvDatasourceManage {
           </div>
               
           <div class={"mt-3 " + (scope.initialType === 0 ? "d-none" : "" )}>
-            <div class="form-group erp-field label-horizontal row no-gutters form">
+            <div class="form-group wv-field label-horizontal row no-gutters form">
               <label class="col-12 col-sm-auto col-form-label label-horizontal pr-0 pr-sm-2">Apply to:</label>
               <div class="col">
                 <select class="form-control form-control-sm" onChange={(e)=> scope.valueChangeHandler(e,"recurrence_change_type","int")}>

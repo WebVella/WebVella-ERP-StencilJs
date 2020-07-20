@@ -26,7 +26,7 @@
 
 ### Used by
 
- - [wv-sitemap-manager](..\wv-sitemap-manager)
+ - [wv-sitemap-manager](../wv-sitemap-manager)
 
 ### Graph
 ```mermaid

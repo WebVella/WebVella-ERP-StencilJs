@@ -9,7 +9,7 @@
 
 ### Used by
 
- - [wv-post-list](..\wv-post-list)
+ - [wv-post-list](../wv-post-list)
 
 ### Graph
 ```mermaid

@@ -15,30 +15,15 @@ function InitIconSelect(scope){
     (window as any).$(selectId).on('select2:select', function (event) {
         scope.modalNodeObj["node"]["icon_class"] = event.target.value;
    });      
-    (window as any).$(selectId).select2({
-		ajax: {
-			url: '/api/v3.0/p/core/select/font-awesome-icons',
-			data: function (params) {
-				var query = {
-					search: params.term,
-					page: params.page || 1
-				};
-				return query;
-			},
-			dataType: 'json',
-			processResults: function (data) {
-				// Tranforms the top-level key of the response object from 'items' to 'results'
-				var results = [];
-				if(data.object.results){
-					_.forEach(data.object.results,function(rec){
-						results.push({id:rec.class,text:rec.class,name:rec.name});
-					});
-				}
 
-				data.object.results = results;
-				return data.object;
-			}
-		},
+   var wvIconOptions = [];
+   _.forEach((window as any).WvFontAwesomeIcons,function(rec){
+     wvIconOptions.push({id:rec.class,text:rec.class,name:rec.name});
+   }); 
+
+    (window as any).$(selectId).select2({
+        data:wvIconOptions,
+        theme: 'bootstrap4',
 		//language: "bg",
 		placeholder: 'not-selected',
 		allowClear: true,
@@ -65,7 +50,7 @@ function InitIconSelect(scope){
 })
 
 export class WvSitemapNodeModal {
-  @Prop() nodeObj: Object = {areaId:null,node:null};
+  @Prop() nodeObj: Object = {areaId:null,node:null,area:null};
   @Prop() nodePageDict: Object = null;  
   @Prop() apiRoot: string;
   @Prop() appId: string;
@@ -74,9 +59,10 @@ export class WvSitemapNodeModal {
   @Event() wvSitemapManagerNodeModalCloseEvent: EventEmitter;
   @Event() wvSitemapManagerNodeSubmittedEvent: EventEmitter;
   @Event() wvSitemapManagerNodeAuxDataUpdateEvent: EventEmitter;
-  @State() modalNodeObj: Object = {areaId:null,node:{},node_pages:[]};
+  @State() modalNodeObj: Object = {areaId:null,node:{},node_pages:[],area:null};
 
   componentWillLoad(){
+        let scope = this;
         var backdropId = "wv-sitemap-manager-area-modal-backdrop";
         var backdropDomEl = document.getElementById(backdropId);
         if(!backdropDomEl){
@@ -85,26 +71,33 @@ export class WvSitemapNodeModal {
             backdropEl.id = backdropId;
             document.body.appendChild(backdropEl);
         }
-        if(this.nodeAuxData == null){
-            this.LoadData();
+        if(scope.nodeAuxData == null){
+            scope.LoadData();
         }
 
-        if(this.nodeObj["node"]){
-            this.modalNodeObj["node"] = {...this.nodeObj["node"]};
-            if(!this.modalNodeObj["node"]["pages"]){
-                this.modalNodeObj["node"]["pages"] = [];
+        if(scope.nodeObj["node"]){
+            scope.modalNodeObj["node"] = {...scope.nodeObj["node"]};
+            if(!scope.modalNodeObj["node"]["pages"]){
+                scope.modalNodeObj["node"]["pages"] = [];
             }
         }
         else{
-            this.modalNodeObj["node"] = {pages:[]};
+            scope.modalNodeObj["node"] = {pages:[]};
         }          
-        this.modalNodeObj["areaId"] = this.nodeObj["areaId"];
-        if(this.nodeObj["node"] && this.nodePageDict && this.nodePageDict[this.nodeObj["node"]["id"]]){
-            this.modalNodeObj["node_pages"] = this.nodePageDict[this.nodeObj["node"]["id"]];
-            this.modalNodeObj["node_pages"].forEach(element => {
-                this.modalNodeObj["node"]["pages"].push(element["value"]);
+        scope.modalNodeObj["areaId"] = scope.nodeObj["areaId"];
+        if(scope.nodeObj["node"] && scope.nodePageDict && scope.nodePageDict[scope.nodeObj["node"]["id"]]){
+            scope.modalNodeObj["node_pages"] = scope.nodePageDict[scope.nodeObj["node"]["id"]];
+            scope.modalNodeObj["node_pages"].forEach(element => {
+                scope.modalNodeObj["node"]["pages"].push(element["value"]);
             });            
-        }           
+        }        
+        scope.modalNodeObj["parent_options"] = [];        
+        _.forEach(scope.nodeObj["area"]["nodes"],function(node:any){
+            if(node["id"] && node["id"] !== scope.modalNodeObj["node"]["id"]){
+                scope.modalNodeObj["parent_options"].push(node);
+            }
+        })
+        scope.modalNodeObj["parent_options"] = _.sortBy(scope.modalNodeObj["parent_options"],["weight"]);
    }
    componentDidLoad(){
        let scope = this;
@@ -207,11 +200,12 @@ export class WvSitemapNodeModal {
   }  
 
   render(){
+      let scope = this;
     let modalTitle = "Manage node";
-    if(!this.nodeObj["node"]){
+    if(!scope.nodeObj["node"]){
       modalTitle = "Create node";
     }    
-    if(this.nodeAuxData == null){
+    if(scope.nodeAuxData == null){
         return(
             <div class="modal d-block">
                 <div class="modal-dialog modal-xl">
@@ -227,12 +221,12 @@ export class WvSitemapNodeModal {
     }
 
     
-    if(!this.modalNodeObj["node"]["type"]){
-        this.modalNodeObj["node"]["type"] = String(this.nodeAuxData["nodeTypes"][0]["value"]);
+    if(!scope.modalNodeObj["node"]["type"]){
+        scope.modalNodeObj["node"]["type"] = String(scope.nodeAuxData["nodeTypes"][0]["value"]);
     }    
 
-    if(!this.modalNodeObj["node"]["entity_id"]){
-        this.modalNodeObj["node"]["entity_id"] = String(this.nodeAuxData["allEntities"][0]["value"]);
+    if(!scope.modalNodeObj["node"]["entity_id"]){
+        scope.modalNodeObj["node"]["entity_id"] = String(scope.nodeAuxData["allEntities"][0]["value"]);
     } 
         
     //Generate available page options
@@ -286,31 +280,54 @@ export class WvSitemapNodeModal {
         <div class="modal d-block">
             <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <form onSubmit={(e)=> this.handleSubmit(e)}>
+                <form onSubmit={(e)=> scope.handleSubmit(e)}>
                 <div class="modal-header">
                     <h5 class="modal-title">{modalTitle}</h5>
                 </div>
                 <div class="modal-body">
-                    <div class={"alert alert-danger " + (this.submitResponse["success"] ? "d-none" : "")}>{this.submitResponse["message"]}</div>
+                    <div class={"alert alert-danger " + (scope.submitResponse["success"] ? "d-none" : "")}>{scope.submitResponse["message"]}</div>
                     <div class="row">
-                        <div class="col col-sm-6">
-                        <div class="form-group erp-field">
+                        <div class="col col-sm-4">
+                        <div class="form-group wv-field">
                             <label class="control-label">Name</label>
-                            <input class="form-control" name="name" value={this.modalNodeObj["node"]["name"]} onInput={(event) => this.handleChange(event)}/>
+                            <input class="form-control" name="name" value={scope.modalNodeObj["node"]["name"]} onInput={(event) => scope.handleChange(event)}/>
                         </div>
                         </div>
-                        <div class="col col-sm-6">
-                        <div class="form-group erp-field">
-                            <label class="control-label">Label</label>
-                            <input class="form-control" name="label" value={this.modalNodeObj["node"]["label"]} onInput={(event) => this.handleChange(event)}/>
-                        </div>
-                        </div>                              
+                        <div class="col col-sm-4">
+                            <div class="form-group wv-field">
+                                <label class="control-label">Label</label>
+                                <input class="form-control" name="label" value={scope.modalNodeObj["node"]["label"]} onInput={(event) => scope.handleChange(event)}/>
+                            </div>
+                        </div>     
+                        <div class="col col-sm-4">
+                            <div class="form-group wv-field form">
+                                <label class="control-label">Parent Node</label>
+                                <select id="modal-parent-id-select" class="form-control" name="parent_id" onChange={(event) => scope.handleChange(event)}>
+                                    <option></option>
+                                    {
+                                        scope.modalNodeObj["parent_options"].map(function(node:any){
+                                            if(node["id"] === scope.modalNodeObj["node"]["parent_id"]){
+                                                return(
+                                                    <option value={node["id"]} selected={true}>{node["label"]}</option>
+                                                )
+                                            }
+                                            else{
+                                                return(
+                                                    <option value={node["id"]}>{node["label"]}</option>
+                                                )
+                                            }
+                                        })
+                                    }
+                                </select>
+                            </div>
+                        </div>                                                  
                     </div>
                     <div class="row">
-                        <div class="col col-sm-6">
-                            <div class="form-group erp-field">
+                        <div class="col col-sm-4">
+                            <div class="form-group wv-field form">
                                 <label class="control-label">Icon Class</label>
                                 <select id="modal-icon-class-select" class="form-control" name="icon_class" onChange={(event) => this.handleChange(event)}>
+                                    <option></option>
                                     {
                                         this.modalNodeObj["node"]["icon_class"] ?(
                                             <option value={this.modalNodeObj["node"]["icon_class"]}>{this.modalNodeObj["node"]["icon_class"]}</option>
@@ -319,16 +336,17 @@ export class WvSitemapNodeModal {
                                 </select>
                             </div>
                         </div>
-                        <div class="col col-sm-6">
-                                <div class="form-group erp-field">
+                        <div class="col col-sm-4">
+                                <div class="form-group wv-field">
                                 <label class="control-label">Weight</label>
                                 <input type="number" step={1} min={1} class="form-control" name="weight" value={this.modalNodeObj["node"]["weight"]} onInput={(event) => this.handleChange(event)}/>
                             </div>
                         </div>                           
+                      
                     </div>                            
                     <div class="row">
-                        <div class="col col-sm-6">
-                            <div class="form-group erp-field">
+                        <div class="col col-sm-4">
+                            <div class="form-group wv-field">
                                 <label class="control-label">Type</label>
                                 <select class="form-control" name="type" onChange={(event) => this.handleSelectChange(event)}>
                                     {this.nodeAuxData["nodeTypes"].map(function(type) { 
@@ -341,8 +359,8 @@ export class WvSitemapNodeModal {
                         </div>                        
                         {String(this.modalNodeObj["node"]["type"]) === "1"
                             ? (
-                                    <div class="col col-sm-6">
-                                        <div class="form-group erp-field">
+                                    <div class="col col-sm-4">
+                                        <div class="form-group wv-field">
                                             <label class="control-label">Entity</label>
                                             <select class="form-control" name="entity_id" onChange={(event) => this.handleSelectChange(event)}>
                                                 {this.nodeAuxData["allEntities"].map(function(type) { 
@@ -358,8 +376,8 @@ export class WvSitemapNodeModal {
                         }           
                         {String(this.modalNodeObj["node"]["type"]) === "2"
                             ? (
-                                    <div class="col col-sm-6">
-                                        <div class="form-group erp-field">
+                                    <div class="col col-sm-4">
+                                        <div class="form-group wv-field">
                                             <label class="control-label">App Pages without nodes</label>
                                             <select class="form-control" multiple name="pages" onChange={(event) => this.handleSelectChange(event)}>
                                                 {appPagesPlusNode.map(function(type) { 
@@ -379,8 +397,8 @@ export class WvSitemapNodeModal {
                         }                                                        
                         {String(this.modalNodeObj["node"]["type"]) === "3"
                             ? (
-                                    <div class="col col-sm-6">
-                                        <div class="form-group erp-field">
+                                    <div class="col col-sm-4">
+                                        <div class="form-group wv-field">
                                             <label class="control-label">Url</label>
                                             <input class="form-control" name="url" value={this.modalNodeObj["node"]["url"]} onInput={(event) => this.handleChange(event)}/>
                                         </div>
@@ -394,7 +412,7 @@ export class WvSitemapNodeModal {
                                     <div>
                                         <div class="row">
                                                 <div class="col-3">
-                                                    <div class="form-group erp-field">
+                                                    <div class="form-group wv-field">
                                                         <label class="control-label">list pages</label>
                                                         <select class="form-control" multiple name="entity_list_pages" onChange={(event) => this.handleSelectChange(event)}>
                                                             {entityListPages.map(function(type) { 
@@ -411,7 +429,7 @@ export class WvSitemapNodeModal {
                                                     </div>                                        
                                                 </div>
                                                 <div class="col-3">
-                                                    <div class="form-group erp-field">
+                                                    <div class="form-group wv-field">
                                                         <label class="control-label">create pages</label>
                                                         <select class="form-control" multiple name="entity_create_pages" onChange={(event) => this.handleSelectChange(event)}>
                                                             {entityCreatePages.map(function(type) { 
@@ -428,7 +446,7 @@ export class WvSitemapNodeModal {
                                                     </div>                                        
                                                 </div>
                                                 <div class="col-3">
-                                                    <div class="form-group erp-field">
+                                                    <div class="form-group wv-field">
                                                         <label class="control-label">details pages</label>
                                                         <select class="form-control" multiple name="entity_details_pages" onChange={(event) => this.handleSelectChange(event)}>
                                                             {entityDetailsPages.map(function(type) { 
@@ -445,7 +463,7 @@ export class WvSitemapNodeModal {
                                                     </div>                                        
                                                 </div>
                                                 <div class="col-3">
-                                                    <div class="form-group erp-field">
+                                                    <div class="form-group wv-field">
                                                         <label class="control-label">manage pages</label>
                                                         <select class="form-control" multiple name="entity_manage_pages" onChange={(event) => this.handleSelectChange(event)}>
                                                             {entityManagePages.map(function(type) { 
