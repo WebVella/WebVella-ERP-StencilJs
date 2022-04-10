@@ -20,7 +20,7 @@
     "test.watch": "stencil test --spec --e2e --watchAll"
   },
   "dependencies": {
-    "axios": "0.21.1",
+    "axios": "0.21.2",
     "lodash": "4.17.21"
   },
   "devDependencies": {

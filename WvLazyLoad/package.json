@@ -20,7 +20,7 @@
     "test.watch": "stencil test --spec --e2e --watchAll"
   },
   "dependencies": {
-    "axios": "0.19.2"
+    "axios": "0.21.2"
   },
   "devDependencies": {
     "@stencil/core": "1.16.4"

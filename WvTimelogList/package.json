@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@stencil/redux": "0.1.2",
-    "axios": "0.21.1",
+    "axios": "0.21.2",
     "lodash": "4.17.21",
     "moment": "2.29.2",
     "redux": "4.0.5",
