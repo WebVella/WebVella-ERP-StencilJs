@@ -1,0 +1,57 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      axios:
+        specifier: 0.21.2
+        version: 0.21.2
+    devDependencies:
+      '@stencil/core':
+        specifier: 1.16.4
+        version: 1.16.4
+
+packages:
+
+  '@stencil/core@1.16.4':
+    resolution: {integrity: sha512-RN1xoGyzNCXAAzN8HHDDoGEbGrms1YpEnfp86kd37ZHOOwX500GwxjsTOpzFcBOfkUoiuBjKVnONTqWO04H8/Q==}
+    engines: {node: '>=10.13.0', npm: '>=6.0.0'}
+    hasBin: true
+
+  axios@0.21.2:
+    resolution: {integrity: sha512-87otirqUw3e8CzHTMO+/9kh/FSgXt/eVDvipijwDtEuwbkySWZ9SBm6VEubmJ/kLKEoLQV/POhxXFb66bfekfg==}
+
+  follow-redirects@1.15.11:
+    resolution: {integrity: sha512-deG2P0JfjrTxl50XGCDyfI97ZGVCxIpfKYmfyrQ54n5FO/0gfIES8C/Psl6kWVDolizcaaxZJnTS0QSMxvnsBQ==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+
+  typescript@3.9.7:
+    resolution: {integrity: sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+
+snapshots:
+
+  '@stencil/core@1.16.4':
+    dependencies:
+      typescript: 3.9.7
+
+  axios@0.21.2:
+    dependencies:
+      follow-redirects: 1.15.11
+    transitivePeerDependencies:
+      - debug
+
+  follow-redirects@1.15.11: {}
+
+  typescript@3.9.7: {}

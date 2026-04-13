@@ -1,0 +1,177 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@stencil/redux':
+        specifier: 0.1.2
+        version: 0.1.2(redux@4.0.5)
+      axios:
+        specifier: 0.21.2
+        version: 0.21.2
+      dragula:
+        specifier: 3.7.2
+        version: 3.7.2
+      hash-sum:
+        specifier: 2.0.0
+        version: 2.0.0
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
+      moment:
+        specifier: 2.29.2
+        version: 2.29.2
+      redux:
+        specifier: 4.0.5
+        version: 4.0.5
+      redux-thunk:
+        specifier: 2.3.0
+        version: 2.3.0(redux@4.0.5)
+    devDependencies:
+      '@stencil/core':
+        specifier: 1.16.4
+        version: 1.16.4
+
+packages:
+
+  '@stencil/core@1.16.4':
+    resolution: {integrity: sha512-RN1xoGyzNCXAAzN8HHDDoGEbGrms1YpEnfp86kd37ZHOOwX500GwxjsTOpzFcBOfkUoiuBjKVnONTqWO04H8/Q==}
+    engines: {node: '>=10.13.0', npm: '>=6.0.0'}
+    hasBin: true
+
+  '@stencil/redux@0.1.2':
+    resolution: {integrity: sha512-HLASGyE7BJX/hJUatXBKjeHxH8EGh9M5U6FpCUiIkxWuBXdEVL2oQOwOgm7QPe3yRgN6i8dEKVXD5Vv4ZnNZ1Q==}
+    deprecated: '@stencil-redux is no longer supported'
+    peerDependencies:
+      redux: ^4.0.1
+
+  atoa@1.0.0:
+    resolution: {integrity: sha512-VVE1H6cc4ai+ZXo/CRWoJiHXrA1qfA31DPnx6D20+kSI547hQN5Greh51LQ1baMRMfxO5K5M4ImMtZbZt2DODQ==}
+
+  axios@0.21.2:
+    resolution: {integrity: sha512-87otirqUw3e8CzHTMO+/9kh/FSgXt/eVDvipijwDtEuwbkySWZ9SBm6VEubmJ/kLKEoLQV/POhxXFb66bfekfg==}
+
+  contra@1.9.4:
+    resolution: {integrity: sha512-N9ArHAqwR/lhPq4OdIAwH4e1btn6EIZMAz4TazjnzCiVECcWUPTma+dRAM38ERImEJBh8NiCCpjoQruSZ+agYg==}
+
+  crossvent@1.5.4:
+    resolution: {integrity: sha512-b6gEmNAh3kemyfNJ0LQzA/29A+YeGwevlSkNp2x0TzLOMYc0b85qRAD06OUuLWLQpR7HdJHNZQTlD1cfwoTrzg==}
+
+  custom-event@1.0.0:
+    resolution: {integrity: sha512-6nOXX3UitrmdvSJWoVR2dlzhbX5bEUqmqsMUyx1ypCLZkHHkcuYtdpW3p94RGvcFkTV7DkLo+Ilbwnlwi8L+jw==}
+
+  dragula@3.7.2:
+    resolution: {integrity: sha512-iDPdNTPZY7P/l0CQ800QiX+PNA2XF9iC3ePLWfGxeb/j8iPPedRuQdfSOfZrazgSpmaShYvYQ/jx7keWb4YNzA==}
+
+  follow-redirects@1.15.11:
+    resolution: {integrity: sha512-deG2P0JfjrTxl50XGCDyfI97ZGVCxIpfKYmfyrQ54n5FO/0gfIES8C/Psl6kWVDolizcaaxZJnTS0QSMxvnsBQ==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+
+  hash-sum@2.0.0:
+    resolution: {integrity: sha512-WdZTbAByD+pHfl/g9QSsBIIwy8IT+EsPiKDs0KNX+zSHhdDLFKdZu0BQHljvO+0QI/BasbMSUa8wYNCZTvhslg==}
+
+  js-tokens@4.0.0:
+    resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
+
+  lodash@4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+
+  loose-envify@1.4.0:
+    resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
+    hasBin: true
+
+  moment@2.29.2:
+    resolution: {integrity: sha512-UgzG4rvxYpN15jgCmVJwac49h9ly9NurikMWGPdVxm8GZD6XjkKPxDTjQQ43gtGgnV3X0cAyWDdP2Wexoquifg==}
+
+  redux-thunk@2.3.0:
+    resolution: {integrity: sha512-km6dclyFnmcvxhAcrQV2AkZmPQjzPDjgVlQtR0EQjxZPyJ0BnMf3in1ryuR8A2qU0HldVRfxYXbFSKlI3N7Slw==}
+    peerDependencies:
+      redux: ^4.0.0
+
+  redux@4.0.5:
+    resolution: {integrity: sha512-VSz1uMAH24DM6MF72vcojpYPtrTUu3ByVWfPL1nPfVRb5mZVTve5GnNCUV53QM/BZ66xfWrm0CTWoM+Xlz8V1w==}
+
+  symbol-observable@1.2.0:
+    resolution: {integrity: sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==}
+    engines: {node: '>=0.10.0'}
+
+  ticky@1.0.1:
+    resolution: {integrity: sha512-RX35iq/D+lrsqhcPWIazM9ELkjOe30MSeoBHQHSsRwd1YuhJO5ui1K1/R0r7N3mFvbLBs33idw+eR6j+w6i/DA==}
+
+  typescript@3.9.7:
+    resolution: {integrity: sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+
+snapshots:
+
+  '@stencil/core@1.16.4':
+    dependencies:
+      typescript: 3.9.7
+
+  '@stencil/redux@0.1.2(redux@4.0.5)':
+    dependencies:
+      redux: 4.0.5
+
+  atoa@1.0.0: {}
+
+  axios@0.21.2:
+    dependencies:
+      follow-redirects: 1.15.11
+    transitivePeerDependencies:
+      - debug
+
+  contra@1.9.4:
+    dependencies:
+      atoa: 1.0.0
+      ticky: 1.0.1
+
+  crossvent@1.5.4:
+    dependencies:
+      custom-event: 1.0.0
+
+  custom-event@1.0.0: {}
+
+  dragula@3.7.2:
+    dependencies:
+      contra: 1.9.4
+      crossvent: 1.5.4
+
+  follow-redirects@1.15.11: {}
+
+  hash-sum@2.0.0: {}
+
+  js-tokens@4.0.0: {}
+
+  lodash@4.17.21: {}
+
+  loose-envify@1.4.0:
+    dependencies:
+      js-tokens: 4.0.0
+
+  moment@2.29.2: {}
+
+  redux-thunk@2.3.0(redux@4.0.5):
+    dependencies:
+      redux: 4.0.5
+
+  redux@4.0.5:
+    dependencies:
+      loose-envify: 1.4.0
+      symbol-observable: 1.2.0
+
+  symbol-observable@1.2.0: {}
+
+  ticky@1.0.1: {}
+
+  typescript@3.9.7: {}

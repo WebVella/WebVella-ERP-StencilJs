@@ -40,11 +40,11 @@ export class WvPostList {
     config.allowedContent = true;
     config.autoParagraph = false;
     config.toolbarLocation = 'top';
-    let extraPluginsArray = ['divarea'];
+    let extraPluginsArray = [];//['divarea'];
     let removePluginsArray = [];
 
-    extraPluginsArray.push("panel");
-    extraPluginsArray.push("autogrow");
+    // extraPluginsArray.push("panel");
+    // extraPluginsArray.push("autogrow");
     config.toolbar = 'full';
     config.toolbar_full = [
       { name: 'basicstyles', items: ['Bold', 'Italic'] },

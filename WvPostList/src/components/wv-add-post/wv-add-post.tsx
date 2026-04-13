@@ -24,7 +24,8 @@ function SubmitReplyForm(scope){
     default:
       requestBody["subject"] = "";
       requestBody["parentId"] = null;    
-      requestBody["body"] = (scope.ckEditor as any).getData();
+      //requestBody["body"] = (scope.ckEditor as any).getData();
+      requestBody["body"] = (document.getElementById("reply-" + storeState.relatedRecordId) as HTMLTextAreaElement).value;
       break;
   }
   requestBody["relatedRecordId"] = storeState.relatedRecordId;
@@ -85,23 +86,24 @@ export class WvAddNew {
   componentDidLoad(){
     let scope = this;
     let getFormEl = document.getElementById("form-add-post");
+    scope.isReplyBtnDisabled = false;
     if(getFormEl){
-      getFormEl.addEventListener('keyup', function(ev){
-        if (!(ev.keyCode == 13 && ev.ctrlKey)) {
-          var editorContent = (scope.ckEditor as any).getData();
-          if (editorContent) {
-            scope.isReplyBtnDisabled = false;
-          }
-          else{
-            scope.isReplyBtnDisabled = true;
-          }
-        }
-      });  
-      getFormEl.addEventListener('keydown', function(ev){
-        if (ev.keyCode == 13 && ev.ctrlKey && !scope.isReplyBtnDisabled) {
-          SubmitReplyForm(scope);
-        }
-      });      
+      // getFormEl.addEventListener('keyup', function(ev){
+      //   if (!(ev.keyCode == 13 && ev.ctrlKey)) {
+      //     var editorContent = (scope.ckEditor as any).getData();
+      //     if (editorContent) {
+      //       scope.isReplyBtnDisabled = false;
+      //     }
+      //     else{
+      //       scope.isReplyBtnDisabled = true;
+      //     }
+      //   }
+      // });  
+      // getFormEl.addEventListener('keydown', function(ev){
+      //   if (ev.keyCode == 13 && ev.ctrlKey && !scope.isReplyBtnDisabled) {
+      //     SubmitReplyForm(scope);
+      //   }
+      // });      
       getFormEl.addEventListener('submit', function(ev){
           ev.preventDefault();
           SubmitReplyForm(scope);
@@ -116,20 +118,21 @@ export class WvAddNew {
       scope.isReplyBoxVisible= false;
     }    
     else if(!scope.ckEditor){
-      let storeState = scope.store.getState();
-      scope.ckEditor = (window as any).CKEDITOR.replace('reply-' + storeState.relatedRecordId, storeState.editorConfig);
-      (scope.ckEditor as any).on('instanceReady', function(){
-        scope.isReplyBoxVisible= true;
-        window.setTimeout(function(){
-          (scope.ckEditor as any).focus();
-        },100);      
-      });        
+      scope.isReplyBoxVisible= true;
+      //let storeState = scope.store.getState();
+      //scope.ckEditor = (window as any).ClassicEditor.create('reply-' + storeState.relatedRecordId, storeState.editorConfig);
+      //(scope.ckEditor as any).on('instanceReady', function(){
+        //scope.isReplyBoxVisible= true;
+        // window.setTimeout(function(){
+        //   (scope.ckEditor as any).focus();
+        // },100);      
+      //});        
     }
     else{
       scope.isReplyBoxVisible= true;
-        window.setTimeout(function(){
-          (scope.ckEditor as any).focus();
-        },100);
+        // window.setTimeout(function(){
+        //   (scope.ckEditor as any).focus();
+        // },100);
     }    
   }
 
@@ -161,7 +164,9 @@ export class WvAddNew {
   render() {
     let scope = this;
     let storeState = scope.store.getState();
-
+    let taStyle = {
+      width:"100%"
+    };
 
     let currentUserImagePath = "/_content/WebVella.Erp.Web/assets/avatar.png";
     let currentUserName = "anonymous";
@@ -191,7 +196,7 @@ export class WvAddNew {
           </div>
           <div class="body">
             <form name="PcPostListSaveForm" id={"form-add-post"}>
-            <textarea id={"reply-" + storeState.relatedRecordId}></textarea>
+            <textarea style={taStyle} id={"reply-" + storeState.relatedRecordId}></textarea>
               <div class="wv-field-html-toolbar">
                 <div class="content">
                   <button type="submit" class="btn btn-sm btn-primary" disabled={scope.isReplyBtnDisabled}>Submit</button>

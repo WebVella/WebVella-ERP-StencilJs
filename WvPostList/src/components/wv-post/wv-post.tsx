@@ -5,11 +5,12 @@ import moment from 'moment';
 import axios from 'axios';
 import * as action from '../../store/actions';
 
-
 function RenderPostFooter(props){
   let scope = props.scope;
   let storeState = scope.store.getState();
-
+    let taStyle = {
+      width:"100%"
+    };
   if(!scope.post["nodes"]){
     scope.post["nodes"] = new Array<Object>();
   }
@@ -45,7 +46,7 @@ function RenderPostFooter(props){
             </div>
             <div class="body">
               <form name="PcPostListSaveForm" id={"form-" + storeState.relatedRecordId + "-" + scope.post["id"]}>
-                <textarea id={"reply-"+ storeState.relatedRecordId + "-" + scope.post["id"]}></textarea>
+                <textarea style={taStyle} id={"reply-"+ storeState.relatedRecordId + "-" + scope.post["id"]}></textarea>
                 <div class="wv-field-html-toolbar">
                   <div class="content">
                     <button type="submit" class="btn btn-sm btn-primary" disabled={scope.isReplyBtnDisabled}>Submit</button>
@@ -65,7 +66,9 @@ function RenderPostFooter(props){
 
 function SubmitReplyForm(scope){
   let storeState = scope.store.getState();
-  let editorContent = (scope.ckEditor as any).getData();
+  let textArea = document.getElementById("reply-"+ storeState.relatedRecordId + "-" + scope.post["id"]) as HTMLTextAreaElement;
+  //let editorContent = (scope.ckEditor as any).getData();
+  let editorContent = textArea.value;
   let requestConfig = {
     headers: {
         'Content-Type': 'application/json;charset=UTF-8',
@@ -85,9 +88,10 @@ function SubmitReplyForm(scope){
         comment:response.data.object
       }
       scope.addComment(actionPayload);
-      if(scope.ckEditor){
-        (scope.ckEditor as any).setData("");
-      }
+      textArea.value = "";
+      // if(scope.ckEditor){
+      //   (scope.ckEditor as any).setData("");
+      // }
       scope.isReplyBtnDisabled = true;
       scope.isReplyBoxVisible = false;
   })
@@ -137,6 +141,19 @@ export class WvPost {
     });   
   }
 
+  componentDidLoad(){
+    let scope = this;
+    let storeState = scope.store.getState();
+    let formId = "form-" + storeState.relatedRecordId + "-" + scope.post["id"];
+    let getFormEl = document.getElementById(formId);
+    if(getFormEl){
+      getFormEl.addEventListener('submit', function(ev){
+          ev.preventDefault();
+          SubmitReplyForm(scope);
+      });                      
+    }    
+  }
+
   ReplyLinkHandler(event: UIEvent){
     event.preventDefault();
     let scope = this;
@@ -144,43 +161,46 @@ export class WvPost {
       scope.isReplyBoxVisible= false;
     }
     else if(!scope.ckEditor){
-      let storeState = scope.store.getState();      
-      scope.ckEditor = (window as any).CKEDITOR.replace('reply-' + storeState.relatedRecordId + "-" + scope.post["id"], storeState.editorConfig);
-      (scope.ckEditor as any).on('instanceReady', function(){
-        scope.isReplyBoxVisible= true;
-        window.setTimeout(function(){
-          (scope.ckEditor as any).focus();
-          let getFormEl = document.getElementById("form-" + storeState.relatedRecordId + "-" + scope.post["id"]);
-          if(getFormEl){
-            getFormEl.addEventListener('keyup', function(ev){
-              if (!(ev.keyCode == 13 && ev.ctrlKey)) {
-                var editorContent = (scope.ckEditor as any).getData();
-                if (editorContent) {
-                  scope.isReplyBtnDisabled = false;
-                }
-                else{
-                  scope.isReplyBtnDisabled = true;
-                }
-              }
-            });  
-            getFormEl.addEventListener('keydown', function(ev){
-              if (ev.keyCode == 13 && ev.ctrlKey && !scope.isReplyBtnDisabled) {
-                SubmitReplyForm(scope);
-              }
-            });
-            getFormEl.addEventListener('submit', function(ev){
-              ev.preventDefault();
-              SubmitReplyForm(scope);
-          });                            
-          }
-        },100);
-      });
+      //let storeState = scope.store.getState();      
+      scope.isReplyBoxVisible= true;
+      scope.isReplyBtnDisabled = false;
+      //scope.ckEditor = (window as any).ClassicEditor.create('reply-' + storeState.relatedRecordId + "-" + scope.post["id"], storeState.editorConfig);
+      //(scope.ckEditor as any).on('instanceReady', function(){
+        //scope.isReplyBoxVisible= true;
+        // window.setTimeout(function(){
+        //   (scope.ckEditor as any).focus();
+        //   let getFormEl = document.getElementById("form-" + storeState.relatedRecordId + "-" + scope.post["id"]);
+        //   if(getFormEl){
+        //     getFormEl.addEventListener('keyup', function(ev){
+        //       if (!(ev.keyCode == 13 && ev.ctrlKey)) {
+        //         var editorContent = (scope.ckEditor as any).getData();
+        //         if (editorContent) {
+        //           scope.isReplyBtnDisabled = false;
+        //         }
+        //         else{
+        //           scope.isReplyBtnDisabled = true;
+        //         }
+        //       }
+        //     });  
+        //     getFormEl.addEventListener('keydown', function(ev){
+        //       if (ev.keyCode == 13 && ev.ctrlKey && !scope.isReplyBtnDisabled) {
+        //         SubmitReplyForm(scope);
+        //       }
+        //     });
+        //     getFormEl.addEventListener('submit', function(ev){
+        //       ev.preventDefault();
+        //       SubmitReplyForm(scope);
+        //   });                            
+        //   }
+        // },100);
+      //});
     }
     else{
       scope.isReplyBoxVisible= true;
-      window.setTimeout(function(){
-        (scope.ckEditor as any).focus();
-      },100);
+      scope.isReplyBtnDisabled = false;
+      // window.setTimeout(function(){
+      //   (scope.ckEditor as any).focus();
+      // },100);
     }
   }
 

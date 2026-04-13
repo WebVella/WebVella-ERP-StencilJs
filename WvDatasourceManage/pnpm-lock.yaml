@@ -1,0 +1,120 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@stencil/redux':
+        specifier: 0.1.2
+        version: 0.1.2(redux@4.0.5)
+      axios:
+        specifier: 0.21.2
+        version: 0.21.2
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
+      redux:
+        specifier: 4.0.5
+        version: 4.0.5
+      redux-thunk:
+        specifier: 2.3.0
+        version: 2.3.0(redux@4.0.5)
+    devDependencies:
+      '@stencil/core':
+        specifier: 1.16.4
+        version: 1.16.4
+
+packages:
+
+  '@stencil/core@1.16.4':
+    resolution: {integrity: sha512-RN1xoGyzNCXAAzN8HHDDoGEbGrms1YpEnfp86kd37ZHOOwX500GwxjsTOpzFcBOfkUoiuBjKVnONTqWO04H8/Q==}
+    engines: {node: '>=10.13.0', npm: '>=6.0.0'}
+    hasBin: true
+
+  '@stencil/redux@0.1.2':
+    resolution: {integrity: sha512-HLASGyE7BJX/hJUatXBKjeHxH8EGh9M5U6FpCUiIkxWuBXdEVL2oQOwOgm7QPe3yRgN6i8dEKVXD5Vv4ZnNZ1Q==}
+    deprecated: '@stencil-redux is no longer supported'
+    peerDependencies:
+      redux: ^4.0.1
+
+  axios@0.21.2:
+    resolution: {integrity: sha512-87otirqUw3e8CzHTMO+/9kh/FSgXt/eVDvipijwDtEuwbkySWZ9SBm6VEubmJ/kLKEoLQV/POhxXFb66bfekfg==}
+
+  follow-redirects@1.15.11:
+    resolution: {integrity: sha512-deG2P0JfjrTxl50XGCDyfI97ZGVCxIpfKYmfyrQ54n5FO/0gfIES8C/Psl6kWVDolizcaaxZJnTS0QSMxvnsBQ==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+
+  js-tokens@4.0.0:
+    resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
+
+  lodash@4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+
+  loose-envify@1.4.0:
+    resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
+    hasBin: true
+
+  redux-thunk@2.3.0:
+    resolution: {integrity: sha512-km6dclyFnmcvxhAcrQV2AkZmPQjzPDjgVlQtR0EQjxZPyJ0BnMf3in1ryuR8A2qU0HldVRfxYXbFSKlI3N7Slw==}
+    peerDependencies:
+      redux: ^4.0.0
+
+  redux@4.0.5:
+    resolution: {integrity: sha512-VSz1uMAH24DM6MF72vcojpYPtrTUu3ByVWfPL1nPfVRb5mZVTve5GnNCUV53QM/BZ66xfWrm0CTWoM+Xlz8V1w==}
+
+  symbol-observable@1.2.0:
+    resolution: {integrity: sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==}
+    engines: {node: '>=0.10.0'}
+
+  typescript@3.9.7:
+    resolution: {integrity: sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+
+snapshots:
+
+  '@stencil/core@1.16.4':
+    dependencies:
+      typescript: 3.9.7
+
+  '@stencil/redux@0.1.2(redux@4.0.5)':
+    dependencies:
+      redux: 4.0.5
+
+  axios@0.21.2:
+    dependencies:
+      follow-redirects: 1.15.11
+    transitivePeerDependencies:
+      - debug
+
+  follow-redirects@1.15.11: {}
+
+  js-tokens@4.0.0: {}
+
+  lodash@4.17.21: {}
+
+  loose-envify@1.4.0:
+    dependencies:
+      js-tokens: 4.0.0
+
+  redux-thunk@2.3.0(redux@4.0.5):
+    dependencies:
+      redux: 4.0.5
+
+  redux@4.0.5:
+    dependencies:
+      loose-envify: 1.4.0
+      symbol-observable: 1.2.0
+
+  symbol-observable@1.2.0: {}
+
+  typescript@3.9.7: {}

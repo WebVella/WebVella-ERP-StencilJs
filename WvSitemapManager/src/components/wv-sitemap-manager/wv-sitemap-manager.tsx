@@ -148,10 +148,10 @@ import axios from 'axios';
           apiUrl+="/" + submittedNode["id"];
         }
         apiUrl+="?appId=" + this.appId + "&areaId=" + areaId;
-        
+
         let requestConfig = {
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8',
             'Accept': 'application/json',
           }
         };   
