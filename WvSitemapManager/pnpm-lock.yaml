@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       axios:
-        specifier: 0.21.2
-        version: 0.21.2
+        specifier: ^0.21.4
+        version: 0.21.4
       lodash:
-        specifier: 4.17.21
-        version: 4.17.21
+        specifier: ^4.18.1
+        version: 4.18.1
     devDependencies:
       '@stencil/core':
         specifier: 1.16.4
@@ -26,8 +26,8 @@ packages:
     engines: {node: '>=10.13.0', npm: '>=6.0.0'}
     hasBin: true
 
-  axios@0.21.2:
-    resolution: {integrity: sha512-87otirqUw3e8CzHTMO+/9kh/FSgXt/eVDvipijwDtEuwbkySWZ9SBm6VEubmJ/kLKEoLQV/POhxXFb66bfekfg==}
+  axios@0.21.4:
+    resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
 
   follow-redirects@1.15.11:
     resolution: {integrity: sha512-deG2P0JfjrTxl50XGCDyfI97ZGVCxIpfKYmfyrQ54n5FO/0gfIES8C/Psl6kWVDolizcaaxZJnTS0QSMxvnsBQ==}
@@ -38,8 +38,8 @@ packages:
       debug:
         optional: true
 
-  lodash@4.17.21:
-    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+  lodash@4.18.1:
+    resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
 
   typescript@3.9.7:
     resolution: {integrity: sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==}
@@ -52,7 +52,7 @@ snapshots:
     dependencies:
       typescript: 3.9.7
 
-  axios@0.21.2:
+  axios@0.21.4:
     dependencies:
       follow-redirects: 1.15.11
     transitivePeerDependencies:
@@ -60,6 +60,6 @@ snapshots:
 
   follow-redirects@1.15.11: {}
 
-  lodash@4.17.21: {}
+  lodash@4.18.1: {}
 
   typescript@3.9.7: {}

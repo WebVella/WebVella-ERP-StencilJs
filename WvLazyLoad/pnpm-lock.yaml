@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       axios:
-        specifier: 0.21.2
-        version: 0.21.2
+        specifier: ^0.21.4
+        version: 0.21.4
     devDependencies:
       '@stencil/core':
         specifier: 1.16.4
@@ -23,8 +23,8 @@ packages:
     engines: {node: '>=10.13.0', npm: '>=6.0.0'}
     hasBin: true
 
-  axios@0.21.2:
-    resolution: {integrity: sha512-87otirqUw3e8CzHTMO+/9kh/FSgXt/eVDvipijwDtEuwbkySWZ9SBm6VEubmJ/kLKEoLQV/POhxXFb66bfekfg==}
+  axios@0.21.4:
+    resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
 
   follow-redirects@1.15.11:
     resolution: {integrity: sha512-deG2P0JfjrTxl50XGCDyfI97ZGVCxIpfKYmfyrQ54n5FO/0gfIES8C/Psl6kWVDolizcaaxZJnTS0QSMxvnsBQ==}
@@ -46,7 +46,7 @@ snapshots:
     dependencies:
       typescript: 3.9.7
 
-  axios@0.21.2:
+  axios@0.21.4:
     dependencies:
       follow-redirects: 1.15.11
     transitivePeerDependencies:
